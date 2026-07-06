@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coordination SAMSAH — Tableau global des projets</title>
+<title>Coordination SAMSAH</title>
 <style>
   :root {
     --bleu: #1a5fb4; --bleu-clair: #e8f0fb; --entete: #1a5fb4;
@@ -14,7 +14,8 @@
     --orange: #b45309; --orange-fond: #fef3e2;
     --vert: #1e7e4d; --vert-fond: #e7f5ee;
     --ombre: 0 1px 3px rgba(15, 30, 60, .08), 0 4px 14px rgba(15, 30, 60, .06);
-    --dom-edu: #1a5fb4; --dom-soc: #1e7e4d; --dom-soin: #c0392b; --dom-psy: #7d3c98; --dom-psm: #b45309; --dom-ergo: #0e7c7b; --bleu-clair-hover: #d5e4f7;
+    --dom-edu: #1a5fb4; --dom-soc: #1e7e4d; --dom-soin: #c0392b; --dom-psy: #7d3c98;
+    --dom-psm: #b45309; --dom-ergo: #0e7c7b; --bleu-clair-hover: #d5e4f7;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -26,7 +27,8 @@
       --orange: #e0a04a; --orange-fond: #382c15;
       --vert: #5fbd8a; --vert-fond: #17301f;
       --ombre: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
-    --dom-edu: #7dabe8; --dom-soc: #66c295; --dom-soin: #e5786a; --dom-psy: #b98ccc; --dom-psm: #e0a04a; --dom-ergo: #58b8b7; --bleu-clair-hover: #24365a;
+      --dom-edu: #7dabe8; --dom-soc: #66c295; --dom-soin: #e5786a; --dom-psy: #b98ccc;
+      --dom-psm: #e0a04a; --dom-ergo: #58b8b7; --bleu-clair-hover: #24365a;
     }
   }
   :root[data-theme="light"] {
@@ -38,7 +40,8 @@
     --orange: #b45309; --orange-fond: #fef3e2;
     --vert: #1e7e4d; --vert-fond: #e7f5ee;
     --ombre: 0 1px 3px rgba(15, 30, 60, .08), 0 4px 14px rgba(15, 30, 60, .06);
-    --dom-edu: #1a5fb4; --dom-soc: #1e7e4d; --dom-soin: #c0392b; --dom-psy: #7d3c98; --dom-psm: #b45309; --dom-ergo: #0e7c7b; --bleu-clair-hover: #d5e4f7;
+    --dom-edu: #1a5fb4; --dom-soc: #1e7e4d; --dom-soin: #c0392b; --dom-psy: #7d3c98;
+    --dom-psm: #b45309; --dom-ergo: #0e7c7b; --bleu-clair-hover: #d5e4f7;
   }
   :root[data-theme="dark"] {
     --bleu: #6ea3e8; --bleu-clair: #1d2c44; --entete: #16406f;
@@ -49,7 +52,8 @@
     --orange: #e0a04a; --orange-fond: #382c15;
     --vert: #5fbd8a; --vert-fond: #17301f;
     --ombre: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
-    --dom-edu: #7dabe8; --dom-soc: #66c295; --dom-soin: #e5786a; --dom-psy: #b98ccc; --dom-psm: #e0a04a; --dom-ergo: #58b8b7; --bleu-clair-hover: #24365a;
+    --dom-edu: #7dabe8; --dom-soc: #66c295; --dom-soin: #e5786a; --dom-psy: #b98ccc;
+    --dom-psm: #e0a04a; --dom-ergo: #58b8b7; --bleu-clair-hover: #24365a;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -59,75 +63,104 @@
     font-size: 15px; line-height: 1.45;
   }
 
-  /* ---------- Barre du haut ---------- */
+  /* ---------- En-tête + onglets ---------- */
   header {
     background: var(--entete); color: #fff;
-    padding: 14px 22px;
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 10px 22px 0;
     position: sticky; top: 0; z-index: 20;
     box-shadow: 0 2px 8px rgba(0,0,0,.15);
   }
-  header h1 { font-size: 17px; margin: 0; font-weight: 600; flex: 1; min-width: 260px; }
-  header h1 small { display: block; font-weight: 400; font-size: 12.5px; opacity: .85; }
+  .ligne-titre { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding-bottom: 8px; }
+  header h1 { font-size: 16.5px; margin: 0; font-weight: 600; white-space: nowrap; }
+  header h1 small { display: block; font-weight: 400; font-size: 12px; opacity: .85; }
+  #recherche {
+    flex: 1; min-width: 200px; max-width: 460px;
+    padding: 8px 12px; border: none; border-radius: 9px; font-size: 14px;
+    background: rgba(255,255,255,.92); color: #1f2937;
+  }
+  #recherche:focus { outline: 3px solid rgba(255,255,255,.45); }
+  .info-sauvegarde { font-size: 12px; opacity: .8; white-space: nowrap; }
   .btn {
-    border: none; border-radius: 8px; padding: 8px 14px;
+    border: none; border-radius: 8px; padding: 8px 13px;
     font-size: 13.5px; font-weight: 600; cursor: pointer;
     background: rgba(255,255,255,.16); color: #fff;
-    transition: background .15s;
+    transition: background .15s; font-family: inherit;
   }
   .btn:hover { background: rgba(255,255,255,.28); }
   .btn.primaire { background: #fff; color: #1a5fb4; }
   .btn.primaire:hover { background: #eaf1fb; }
   .btn.danger { background: var(--rouge); color: #fff; }
-  .btn.danger:hover { background: #a93226; }
   .btn.secondaire { background: var(--bleu-clair); color: var(--bleu); }
   .btn.secondaire:hover { background: var(--bleu-clair-hover); }
+  .btn.plein { background: var(--bleu); color: #fff; }
+  .btn.plein:hover { filter: brightness(1.1); }
+  .btn.petit { padding: 4px 10px; font-size: 12.5px; }
 
-  /* ---------- Statistiques + filtres ---------- */
-  .bandeau {
-    max-width: 1250px; margin: 18px auto 0; padding: 0 22px;
-    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  nav.onglets { display: flex; gap: 2px; flex-wrap: wrap; }
+  nav.onglets button {
+    border: none; cursor: pointer; font-family: inherit;
+    background: transparent; color: rgba(255,255,255,.75);
+    font-size: 13.5px; font-weight: 600; padding: 9px 14px;
+    border-radius: 9px 9px 0 0;
   }
-  .stat {
-    background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
-    padding: 8px 14px; font-size: 13.5px; cursor: pointer;
-    box-shadow: var(--ombre); user-select: none;
-  }
-  .stat b { font-size: 17px; margin-right: 5px; }
-  .stat.actif { outline: 2px solid var(--bleu); }
-  .stat.orange b { color: var(--orange); }
-  .stat.rouge b { color: var(--rouge); }
-  .stat.vert b { color: var(--vert); }
-  .bandeau input[type=search], .bandeau select {
-    padding: 9px 12px; border: 1px solid var(--bord); border-radius: 10px;
-    font-size: 14px; background: var(--carte); box-shadow: var(--ombre);
-  }
-  .bandeau input[type=search] { flex: 1; min-width: 220px; }
-  .bandeau input[type=search]:focus, .bandeau select:focus {
-    outline: 2px solid var(--bleu); border-color: transparent;
+  nav.onglets button:hover { background: rgba(255,255,255,.12); color: #fff; }
+  nav.onglets button.actif { background: var(--fond); color: var(--bleu); }
+  nav.onglets button .pastille {
+    background: var(--rouge); color: #fff; border-radius: 12px;
+    font-size: 11px; padding: 1px 6px; margin-left: 4px; vertical-align: 1px;
   }
 
-  /* ---------- Tableau ---------- */
-  main { max-width: 1250px; margin: 14px auto 60px; padding: 0 22px; }
+  /* ---------- Menu Données ---------- */
+  details.menu { position: relative; }
+  details.menu summary { list-style: none; cursor: pointer; }
+  details.menu summary::-webkit-details-marker { display: none; }
+  details.menu .panneau {
+    position: absolute; right: 0; top: 40px; z-index: 50;
+    background: var(--carte); color: var(--texte);
+    border: 1px solid var(--bord); border-radius: 10px; box-shadow: var(--ombre);
+    min-width: 250px; padding: 6px; display: grid;
+  }
+  details.menu .panneau button {
+    text-align: left; background: none; border: none; cursor: pointer;
+    padding: 9px 12px; font-size: 13.5px; color: var(--texte);
+    border-radius: 7px; font-family: inherit;
+  }
+  details.menu .panneau button:hover { background: var(--bleu-clair); color: var(--bleu); }
+  details.menu .panneau hr { border: none; border-top: 1px solid var(--bord); margin: 4px 0; }
+
+  /* ---------- Corps ---------- */
+  main { max-width: 1280px; margin: 16px auto 60px; padding: 0 22px; }
+  section.page { display: none; }
+  section.page.actif { display: block; }
+  .carte {
+    background: var(--carte); border-radius: 12px;
+    box-shadow: var(--ombre); border: 1px solid var(--bord);
+    padding: 16px 18px; margin-bottom: 16px;
+  }
+  .carte h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .4px;
+    color: var(--texte-2); margin: 0 0 12px; display: flex; justify-content: space-between; align-items: center; }
   .table-wrap {
     background: var(--carte); border-radius: 12px; overflow: auto;
-    box-shadow: var(--ombre); border: 1px solid var(--bord);
+    box-shadow: var(--ombre); border: 1px solid var(--bord); margin-bottom: 16px;
   }
-  table { width: 100%; border-collapse: collapse; min-width: 900px; }
+  table { width: 100%; border-collapse: collapse; }
   thead th {
     text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .4px;
     color: var(--texte-2); padding: 11px 12px; border-bottom: 2px solid var(--bord);
-    cursor: pointer; white-space: nowrap; user-select: none;
+    white-space: nowrap; user-select: none;
     position: sticky; top: 0; background: var(--carte); z-index: 5;
   }
-  thead th:hover { color: var(--bleu); }
+  thead th[data-tri] { cursor: pointer; }
+  thead th[data-tri]:hover { color: var(--bleu); }
   thead th .fleche { font-size: 10px; margin-left: 3px; }
-  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--bord); vertical-align: top; }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--bord); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
   tbody tr.ligne { cursor: pointer; transition: background .1s; }
   tbody tr.ligne:hover { background: var(--bleu-clair); }
   tbody tr.ligne.ouverte { background: var(--bleu-clair); }
   .nom { font-weight: 600; white-space: nowrap; }
   .muet { color: var(--texte-2); }
+  .nombre { font-variant-numeric: tabular-nums; }
   .badge {
     display: inline-block; border-radius: 20px; padding: 2px 10px;
     font-size: 12px; font-weight: 600; white-space: nowrap;
@@ -137,44 +170,114 @@
   .badge.vert { background: var(--vert-fond); color: var(--vert); }
   .badge.gris { background: var(--gris-fond); color: var(--texte-2); }
   .badge.bleu { background: var(--bleu-clair); color: var(--bleu); }
+  .vide { text-align: center; padding: 36px; color: var(--texte-2); }
 
-  /* ---------- Détail (ligne dépliée) ---------- */
+  /* ---------- Tableau de bord ---------- */
+  .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tuile {
+    background: var(--carte); border: 1px solid var(--bord); border-radius: 12px;
+    padding: 14px 16px; box-shadow: var(--ombre); cursor: pointer;
+  }
+  .tuile b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+  .tuile span { font-size: 12.5px; color: var(--texte-2); }
+  .tuile.orange b { color: var(--orange); }
+  .tuile.rouge b { color: var(--rouge); }
+  .tuile.vert b { color: var(--vert); }
+  .deux-colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .deux-colonnes { grid-template-columns: 1fr; } }
+  .tache { display: flex; gap: 10px; align-items: baseline; padding: 7px 4px; border-bottom: 1px solid var(--bord); }
+  .tache:last-child { border-bottom: none; }
+  .tache input[type=checkbox] { transform: translateY(2px); cursor: pointer; }
+  .tache .date-t { font-size: 12.5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .tache.retard .date-t { color: var(--rouge); font-weight: 700; }
+  .tache.proche .date-t { color: var(--orange); font-weight: 700; }
+  .tache.faite { opacity: .5; text-decoration: line-through; }
+  .barre-ligne { display: grid; grid-template-columns: 130px 1fr 34px; gap: 8px; align-items: center;
+    font-size: 13px; padding: 4px 0; }
+  .barre-ligne .rail { display: block; background: var(--gris-fond); border-radius: 6px; height: 14px; overflow: hidden; }
+  .barre-ligne .rempli { display: block; background: var(--bleu); height: 100%; border-radius: 6px; min-width: 2px; }
+  .barre-ligne .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--texte-2); }
+
+  /* ---------- Filtres de page ---------- */
+  .filtres { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .filtres select, .filtres input {
+    padding: 8px 11px; border: 1px solid var(--bord); border-radius: 9px;
+    font-size: 13.5px; background: var(--carte); color: var(--texte); font-family: inherit;
+  }
+  .filtres .stat {
+    background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
+    padding: 7px 13px; font-size: 13px; cursor: pointer; box-shadow: var(--ombre); user-select: none;
+  }
+  .filtres .stat b { font-size: 16px; margin-right: 4px; }
+  .filtres .stat.actif { outline: 2px solid var(--bleu); }
+  .filtres .stat.orange b { color: var(--orange); }
+  .filtres .stat.rouge b { color: var(--rouge); }
+  .filtres .stat.vert b { color: var(--vert); }
+
+  /* ---------- Détail usager (ligne dépliée) ---------- */
   tr.detail td { background: var(--fond-2); padding: 16px 22px; }
   .objectifs { display: grid; gap: 10px; }
   .objectif {
-    display: grid; grid-template-columns: 150px 1fr 190px; gap: 12px;
+    display: grid; grid-template-columns: 150px 1fr 170px; gap: 12px;
     background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
     padding: 10px 14px; align-items: start;
   }
-  .dom {
-    font-weight: 700; font-size: 13px; border-left: 4px solid var(--texte-2);
-    padding-left: 8px; white-space: nowrap;
-  }
-  .dom.Educatif       { border-color: var(--dom-edu); color: var(--dom-edu); }
-  .dom.Social         { border-color: var(--dom-soc); color: var(--dom-soc); }
-  .dom.Soin           { border-color: var(--dom-soin); color: var(--dom-soin); }
-  .dom.Psychologie    { border-color: var(--dom-psy); color: var(--dom-psy); }
-  .dom.Psychomotricite{ border-color: var(--dom-psm); color: var(--dom-psm); }
-  .dom.Ergotherapie   { border-color: var(--dom-ergo); color: var(--dom-ergo); }
-  .dom.Autre          { border-color: #6b7280; color: #6b7280; }
+  .dom { font-weight: 700; font-size: 13px; border-left: 4px solid var(--texte-2); padding-left: 8px; }
+  .dom.Educatif        { border-color: var(--dom-edu); color: var(--dom-edu); }
+  .dom.Social          { border-color: var(--dom-soc); color: var(--dom-soc); }
+  .dom.Soin            { border-color: var(--dom-soin); color: var(--dom-soin); }
+  .dom.Psychologie     { border-color: var(--dom-psy); color: var(--dom-psy); }
+  .dom.Psychomotricite { border-color: var(--dom-psm); color: var(--dom-psm); }
+  .dom.Ergotherapie    { border-color: var(--dom-ergo); color: var(--dom-ergo); }
+  .dom.Autre           { border-color: var(--texte-2); color: var(--texte-2); }
   .objectif .texte { white-space: pre-wrap; font-size: 14px; }
-  .detail-actions { margin-top: 14px; display: flex; gap: 10px; }
-  .vide { text-align: center; padding: 40px; color: var(--texte-2); }
+  .objectif .sous { font-size: 12.5px; color: var(--texte-2); margin-top: 4px; white-space: pre-wrap; }
+  .detail-actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .fiche-resume { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 6px 18px; font-size: 13.5px; margin-bottom: 12px; }
+  .fiche-resume div b { color: var(--texte-2); font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: .3px; display: block; }
 
-  /* ---------- Fenêtre d'édition ---------- */
+  /* ---------- Calendrier ---------- */
+  .cal-tete { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .cal-tete h3 { margin: 0; font-size: 16px; text-transform: capitalize; flex: 1; }
+  .calendrier { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .calendrier .jour-nom { font-size: 11.5px; text-transform: uppercase; color: var(--texte-2);
+    text-align: center; padding: 4px 0; }
+  .calendrier .jour {
+    background: var(--carte); border: 1px solid var(--bord); border-radius: 8px;
+    min-height: 74px; padding: 4px 6px; font-size: 12px;
+  }
+  .calendrier .jour.hors { opacity: .35; }
+  .calendrier .jour.auj { outline: 2px solid var(--bleu); }
+  .calendrier .jour .num { font-weight: 700; font-size: 12.5px; }
+  .calendrier .evt { border-radius: 5px; padding: 1px 5px; margin-top: 3px;
+    font-size: 11px; line-height: 1.3; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    background: var(--bleu-clair); color: var(--bleu); cursor: default; }
+  .calendrier .evt.retard { background: var(--rouge-fond); color: var(--rouge); }
+  .calendrier .evt.fait { opacity: .45; text-decoration: line-through; }
+
+  /* ---------- Fenêtres modales ---------- */
   dialog {
     border: none; border-radius: 14px; padding: 0;
-    width: min(880px, 94vw); max-height: 92vh;
-    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    width: min(940px, 95vw); max-height: 93vh;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    background: var(--carte); color: var(--texte);
   }
-  dialog::backdrop { background: rgba(15,30,60,.45); }
+  dialog.etroit { width: min(520px, 94vw); }
+  dialog::backdrop { background: rgba(10,20,40,.5); }
   .modal-tete {
-    background: var(--entete); color: #fff; padding: 14px 22px;
+    background: var(--entete); color: #fff; padding: 13px 20px;
     font-size: 16px; font-weight: 600;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
   }
-  .modal-corps { padding: 20px 22px; overflow: auto; max-height: calc(92vh - 130px); }
-  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .modal-corps { padding: 18px 20px; overflow: auto; max-height: calc(93vh - 128px); }
+  .modal-pied {
+    padding: 12px 20px; border-top: 1px solid var(--bord);
+    display: flex; gap: 10px; justify-content: flex-end; background: var(--fond-2);
+    flex-wrap: wrap;
+  }
+  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
   label.champ { display: block; font-size: 12.5px; font-weight: 600; color: var(--texte-2); }
   label.champ input, label.champ textarea, label.champ select {
     display: block; width: 100%; margin-top: 4px;
@@ -184,413 +287,1659 @@
   label.champ input:focus, label.champ textarea:focus, label.champ select:focus {
     outline: 2px solid var(--bleu); border-color: transparent;
   }
-  .obj-edit {
-    border: 1px solid var(--bord); border-radius: 10px; padding: 12px;
-    margin-top: 10px; display: grid; grid-template-columns: 170px 1fr 170px 36px;
-    gap: 10px; align-items: start; background: var(--fond-2);
+  label.case { font-size: 13.5px; display: flex; gap: 8px; align-items: center; margin-top: 20px; }
+  details.section {
+    border: 1px solid var(--bord); border-radius: 10px; margin-bottom: 10px;
+    background: var(--fond-2);
   }
-  .obj-edit textarea { min-height: 64px; resize: vertical; }
-  .suppr-obj {
+  details.section summary {
+    cursor: pointer; padding: 10px 14px; font-weight: 700; font-size: 13.5px;
+    user-select: none; color: var(--bleu);
+  }
+  details.section .contenu { padding: 4px 14px 14px; }
+  .ligne-sous {
+    display: grid; gap: 8px; align-items: end; margin-bottom: 8px;
+    grid-template-columns: 1fr 1fr 1fr 34px;
+  }
+  .ligne-sous.obj { grid-template-columns: 150px 1fr 1fr 130px 130px 34px; }
+  @media (max-width: 800px) { .ligne-sous, .ligne-sous.obj { grid-template-columns: 1fr 1fr; } }
+  .suppr {
     border: none; background: var(--rouge-fond); color: var(--rouge);
-    border-radius: 8px; cursor: pointer; font-size: 16px; height: 34px; margin-top: 18px;
+    border-radius: 8px; cursor: pointer; font-size: 15px; height: 34px; width: 34px;
   }
-  .modal-pied {
-    padding: 14px 22px; border-top: 1px solid var(--bord);
-    display: flex; gap: 10px; justify-content: flex-end; background: var(--fond-2);
-  }
-  .sous-titre { font-size: 13px; font-weight: 700; color: var(--texte-2);
-    text-transform: uppercase; letter-spacing: .4px; margin: 22px 0 4px; }
+  .note-item { border-bottom: 1px solid var(--bord); padding: 7px 2px; font-size: 13.5px;
+    display: flex; gap: 10px; align-items: baseline; }
+  .note-item .qd { color: var(--texte-2); font-size: 12px; white-space: nowrap; }
+  .note-item p { margin: 0; flex: 1; white-space: pre-wrap; }
 
-  .info-sauvegarde { font-size: 12px; opacity: .8; }
+  /* ---------- Verrou ---------- */
+  #verrou {
+    position: fixed; inset: 0; z-index: 100; display: none;
+    background: var(--fond); align-items: center; justify-content: center;
+  }
+  #verrou.actif { display: flex; }
+  #verrou .boite {
+    background: var(--carte); border: 1px solid var(--bord); border-radius: 16px;
+    box-shadow: var(--ombre); padding: 34px 38px; max-width: 380px; text-align: center;
+  }
+  #verrou h2 { margin: 0 0 6px; font-size: 19px; }
+  #verrou p { color: var(--texte-2); font-size: 13.5px; margin: 0 0 18px; }
+  #verrou input {
+    width: 100%; padding: 11px 12px; font-size: 17px; text-align: center;
+    border: 1px solid var(--bord); border-radius: 10px; letter-spacing: 3px;
+    background: var(--carte); color: var(--texte);
+  }
+  #verrou .erreur { color: var(--rouge); font-size: 13px; min-height: 18px; margin: 8px 0; }
+
+  /* ---------- Toast ---------- */
+  #toast {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--texte); color: var(--fond); padding: 10px 20px;
+    border-radius: 10px; font-size: 14px; font-weight: 600; z-index: 200;
+    transition: transform .25s; box-shadow: 0 8px 30px rgba(0,0,0,.3);
+  }
+  #toast.visible { transform: translateX(-50%) translateY(0); }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
 
   /* ---------- Impression ---------- */
   @media print {
-    header .btn, .bandeau, .detail-actions, .suppr-obj { display: none !important; }
+    header, .filtres, .detail-actions, #toast, .modal-pied, .tuile { box-shadow: none; }
+    header .btn, header nav, header #recherche, .filtres, .detail-actions { display: none !important; }
     header { position: static; background: #fff; color: #000; box-shadow: none; }
+    header h1 small { color: #333; }
     body { background: #fff; }
-    .table-wrap { box-shadow: none; border: none; }
+    .table-wrap, .carte { box-shadow: none; border-color: #bbb; }
     tr.detail { display: table-row !important; }
   }
 </style>
 </head>
 <body>
-
 <header>
-  <h1 id="titre-app">Coordination SAMSAH
-    <small>Tableau global des projets — Toutes déficiences et TSA</small>
-  </h1>
-  <span class="info-sauvegarde" id="info-sauvegarde"></span>
-  <button class="btn primaire" onclick="ouvrirEdition(null)">➕ Nouvel usager</button>
-  <button class="btn" onclick="exporterJSON()">💾 Sauvegarder (JSON)</button>
-  <button class="btn" onclick="document.getElementById('fichier-import').click()">📂 Importer</button>
-  <button class="btn" onclick="exporterCSV()">📊 Export Excel (CSV)</button>
-  <button class="btn" onclick="window.print()">🖨️ Imprimer</button>
+  <div class="ligne-titre">
+    <h1>Coordination SAMSAH <small id="sous-titre">Tableau global des projets</small></h1>
+    <input type="search" id="recherche" placeholder="🔍 Recherche globale (nom, objectif, référent, partenaire…)">
+    <span class="info-sauvegarde" id="info-sauvegarde"></span>
+    <button class="btn primaire" onclick="ouvrirUsager(null)">➕ Usager</button>
+    <details class="menu" id="menu-donnees">
+      <summary class="btn">⚙️ Données ▾</summary>
+      <div class="panneau">
+        <button onclick="exporterJSON()">💾 Exporter toutes les données (JSON)</button>
+        <button onclick="document.getElementById('fichier-import').click()">📂 Importer un fichier JSON</button>
+        <button onclick="exporterCSVvue()">📊 Exporter la vue actuelle (CSV Excel)</button>
+        <hr>
+        <button onclick="ouvrirCode()">🔐 Code d'accès et chiffrement…</button>
+        <button onclick="ouvrirSauvegardes()">🕘 Copies de secours automatiques…</button>
+        <button onclick="ouvrirParametres()">🛠 Paramètres du service…</button>
+        <hr>
+        <button onclick="annuler()">↩️ Annuler la dernière action (Ctrl+Z)</button>
+        <button onclick="window.print()">🖨️ Imprimer la vue actuelle</button>
+      </div>
+    </details>
+  </div>
+  <nav class="onglets" id="onglets">
+    <button data-page="accueil" class="actif">🏠 Tableau de bord</button>
+    <button data-page="usagers">👥 Usagers</button>
+    <button data-page="echeancier">📅 Échéancier</button>
+    <button data-page="journal">📓 Journal</button>
+    <button data-page="attente">⏳ Liste d'attente</button>
+    <button data-page="ecrits">📝 Écrits</button>
+    <button data-page="stats">📈 Statistiques</button>
+  </nav>
   <input type="file" id="fichier-import" accept=".json" hidden onchange="importerJSON(this)">
 </header>
 
-<div class="bandeau">
-  <span class="stat" data-filtre="tous"><b id="st-total">0</b> usagers</span>
-  <span class="stat orange" data-filtre="bientot"><b id="st-bientot">0</b> échéances &lt; 6 mois</span>
-  <span class="stat rouge" data-filtre="echues"><b id="st-echues">0</b> notifications échues</span>
-  <span class="stat vert" data-filtre="observation"><b id="st-obs">0</b> en observation</span>
-  <input type="search" id="recherche" placeholder="🔍 Rechercher un nom, un objectif, un référent… (résultat instantané)">
-  <select id="filtre-referent"><option value="">Tous les référents</option></select>
-</div>
-
 <main>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
+  <!-- ================= Tableau de bord ================= -->
+  <section class="page actif" id="page-accueil">
+    <div class="tuiles" id="tuiles"></div>
+    <div class="deux-colonnes">
+      <div class="carte">
+        <h2>À faire cette semaine <button class="btn secondaire petit" onclick="allerPage('echeancier')">Tout l'échéancier →</button></h2>
+        <div id="afaire"></div>
+      </div>
+      <div class="carte">
+        <h2>Charge par référent</h2>
+        <div id="charge"></div>
+        <h2 style="margin-top:18px">Mouvements de l'année</h2>
+        <div id="mouvements" style="font-size:13.5px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Usagers ================= -->
+  <section class="page" id="page-usagers">
+    <div class="filtres">
+      <span class="stat" data-fu="tous"><b id="fu-total">0</b> file active</span>
+      <span class="stat orange" data-fu="bientot"><b id="fu-bientot">0</b> échéances &lt; 6 mois</span>
+      <span class="stat rouge" data-fu="echues"><b id="fu-echues">0</b> notifications échues</span>
+      <span class="stat vert" data-fu="observation"><b id="fu-obs">0</b> en observation</span>
+      <select id="filtre-referent"><option value="">Tous les référents</option></select>
+      <select id="filtre-statut">
+        <option value="">File active + sorties</option>
+        <option value="actif">Actifs</option>
+        <option value="observation">En observation</option>
+        <option value="fin">Fin d'accompagnement</option>
+        <option value="sorti">Sortis</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
           <th data-tri="nom">Nom <span class="fleche"></span></th>
           <th data-tri="prenom">Prénom <span class="fleche"></span></th>
           <th data-tri="age">Âge <span class="fleche"></span></th>
           <th data-tri="referent">Référent <span class="fleche"></span></th>
-          <th data-tri="signaturePP">Signature PP <span class="fleche"></span></th>
-          <th data-tri="finNotification">Fin notification <span class="fleche"></span></th>
+          <th data-tri="statut">Statut <span class="fleche"></span></th>
+          <th data-tri="notifFin">Fin notification <span class="fleche"></span></th>
           <th>Situation / objectifs</th>
-        </tr>
-      </thead>
-      <tbody id="corps-table"></tbody>
-    </table>
-  </div>
+        </tr></thead>
+        <tbody id="corps-usagers"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= Échéancier ================= -->
+  <section class="page" id="page-echeancier">
+    <div class="filtres">
+      <select id="filtre-ech">
+        <option value="afaire">À faire uniquement</option>
+        <option value="tout">Tout afficher</option>
+      </select>
+      <button class="btn plein petit" onclick="ouvrirEcheance()">➕ Ajouter une échéance</button>
+      <span style="flex:1"></span>
+      <button class="btn secondaire petit" id="btn-vue-cal" onclick="basculerVueEch()">🗓 Vue calendrier</button>
+    </div>
+    <div id="ech-liste"></div>
+    <div id="ech-calendrier" style="display:none">
+      <div class="carte">
+        <div class="cal-tete">
+          <button class="btn secondaire petit" onclick="bougerMois(-1)">◀</button>
+          <h3 id="cal-mois"></h3>
+          <button class="btn secondaire petit" onclick="bougerMois(1)">▶</button>
+          <button class="btn secondaire petit" onclick="moisCourant=null;afficherEcheancier()">Aujourd'hui</button>
+        </div>
+        <div class="calendrier" id="cal-grille"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Journal ================= -->
+  <section class="page" id="page-journal">
+    <div class="carte">
+      <h2>Nouvelle intervention</h2>
+      <div class="grille">
+        <label class="champ">Date <input type="date" id="j-date"></label>
+        <label class="champ">Usager <select id="j-usager"></select></label>
+        <label class="champ">Professionnel <input id="j-pro" list="liste-pros"></label>
+        <label class="champ">Type <select id="j-type">
+          <option>VAD (visite à domicile)</option><option>Entretien au service</option>
+          <option>Accompagnement extérieur</option><option>Appel téléphonique</option>
+          <option>Synthèse / réunion</option><option>Coordination partenaire</option><option>Autre</option>
+        </select></label>
+        <label class="champ">Durée (minutes) <input type="number" id="j-duree" min="0" step="5" value="60"></label>
+      </div>
+      <label class="champ" style="margin-top:10px">Note <textarea id="j-note" rows="2"></textarea></label>
+      <div style="margin-top:10px"><button class="btn plein" onclick="ajouterIntervention()">✔ Enregistrer l'intervention</button></div>
+    </div>
+    <div class="filtres">
+      <select id="jf-usager"><option value="">Tous les usagers</option></select>
+      <select id="jf-pro"><option value="">Tous les professionnels</option></select>
+      <select id="jf-periode">
+        <option value="30">30 derniers jours</option>
+        <option value="90">3 derniers mois</option>
+        <option value="365">12 derniers mois</option>
+        <option value="">Tout</option>
+      </select>
+      <span id="j-totaux" class="muet" style="font-size:13px"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Usager</th><th>Professionnel</th><th>Type</th><th>Durée</th><th>Note</th><th></th></tr></thead>
+        <tbody id="corps-journal"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= Liste d'attente ================= -->
+  <section class="page" id="page-attente">
+    <div class="filtres">
+      <button class="btn plein petit" onclick="ouvrirCandidature()">➕ Nouvelle candidature</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nom</th><th>Prénom</th><th>Reçu le</th><th>Fin notification</th><th>Priorité</th>
+          <th>Décision</th><th>Suivi des contacts</th><th></th></tr></thead>
+        <tbody id="corps-attente"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= Écrits ================= -->
+  <section class="page" id="page-ecrits">
+    <div class="filtres">
+      <button class="btn plein petit" onclick="ouvrirEcrit()">➕ Nouvel écrit à produire</button>
+      <select id="ef-statut">
+        <option value="">Tous les statuts</option><option>Demandé</option>
+        <option>En cours</option><option>Transmis</option><option>Validé</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Usager</th><th>Type d'écrit</th><th>Échéance</th><th>Statut</th><th>Note</th><th style="width:200px"></th></tr></thead>
+        <tbody id="corps-ecrits"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= Statistiques ================= -->
+  <section class="page" id="page-stats">
+    <div class="deux-colonnes" id="stats-zone"></div>
+  </section>
 </main>
 
-<!-- Fenêtre d'édition -->
-<dialog id="modal">
-  <div class="modal-tete">
-    <span id="modal-titre">Usager</span>
-    <button class="btn" onclick="document.getElementById('modal').close()">✕ Fermer</button>
-  </div>
+<!-- ================= Fenêtres ================= -->
+
+<dialog id="modal-usager">
+  <div class="modal-tete"><span id="mu-titre">Usager</span>
+    <button class="btn" onclick="fermer('modal-usager')">✕</button></div>
   <div class="modal-corps">
-    <div class="grille">
-      <label class="champ">Nom <input id="f-nom"></label>
-      <label class="champ">Prénom <input id="f-prenom"></label>
-      <label class="champ">Date de naissance (JJ/MM/AAAA) <input id="f-naissance" placeholder="ex : 28/07/2000"></label>
-      <label class="champ">Référent <input id="f-referent" list="liste-referents"><datalist id="liste-referents"></datalist></label>
-      <label class="champ">Signature du PP <input id="f-signaturePP" placeholder="JJ/MM/AA ou « En cours »"></label>
-      <label class="champ">Fin de notification SAMSAH <input id="f-finNotification" placeholder="JJ/MM/AA"></label>
-      <label class="champ">Prochain écrit <input id="f-prochainEcrit"></label>
-    </div>
-    <label class="champ" style="margin-top:12px">Situation / note générale
-      <textarea id="f-note" rows="2" placeholder="ex : Période d'observation en cours"></textarea>
-    </label>
-    <div class="sous-titre">Objectifs du projet personnalisé</div>
-    <div id="liste-obj-edit"></div>
-    <button class="btn secondaire" style="margin-top:10px" onclick="ajouterObjectifEdit()">➕ Ajouter un objectif</button>
+    <details class="section" open><summary>Identité et coordonnées</summary><div class="contenu">
+      <div class="grille">
+        <label class="champ">Nom <input id="u-nom"></label>
+        <label class="champ">Prénom <input id="u-prenom"></label>
+        <label class="champ">Naissance (JJ/MM/AAAA) <input id="u-naissance" placeholder="28/07/2000"></label>
+        <label class="champ">Sexe <select id="u-sexe"><option value=""></option><option>F</option><option>H</option></select></label>
+        <label class="champ">Téléphone <input id="u-telephone"></label>
+        <label class="champ">Email <input id="u-email"></label>
+      </div>
+      <label class="champ" style="margin-top:10px">Adresse <input id="u-adresse"></label>
+    </div></details>
+
+    <details class="section"><summary>Parcours dans le service</summary><div class="contenu">
+      <div class="grille">
+        <label class="champ">Statut <select id="u-statut">
+          <option value="observation">Période d'observation</option>
+          <option value="actif">Accompagnement actif</option>
+          <option value="fin">Fin d'accompagnement</option>
+          <option value="sorti">Sorti du service</option>
+        </select></label>
+        <label class="champ">Admission <input type="date" id="u-admission"></label>
+        <label class="champ">Sortie <input type="date" id="u-sortie"></label>
+        <label class="champ">Motif de sortie <input id="u-motifSortie" placeholder="déménagement, relais SAVS…"></label>
+      </div>
+      <label class="champ" style="margin-top:10px">Note de situation (visible dans le tableau)
+        <input id="u-note" placeholder="ex : Période d'observation en cours"></label>
+    </div></details>
+
+    <details class="section"><summary>Administratif MDPH</summary><div class="contenu">
+      <div class="grille">
+        <label class="champ">N° de dossier MDPH <input id="u-mdphNumero"></label>
+        <label class="champ">Notification — début <input id="u-notifDebut" placeholder="JJ/MM/AA"></label>
+        <label class="champ">Notification — fin <input id="u-notifFin" placeholder="JJ/MM/AA"></label>
+        <label class="champ">Déficience <select id="u-deficience">
+          <option value=""></option><option>TSA</option><option>Déficience intellectuelle</option>
+          <option>Handicap psychique</option><option>Handicap moteur</option><option>Polyhandicap</option><option>Autre</option>
+        </select></label>
+        <label class="case"><input type="checkbox" id="u-renouvDepose"> Renouvellement déposé</label>
+        <label class="champ">Date de dépôt <input type="date" id="u-dateDepot"></label>
+      </div>
+    </div></details>
+
+    <details class="section"><summary>Protection et entourage</summary><div class="contenu">
+      <div class="grille">
+        <label class="champ">Mesure de protection <select id="u-protType">
+          <option>Aucune</option><option>Sauvegarde de justice</option><option>Curatelle simple</option>
+          <option>Curatelle renforcée</option><option>Tutelle</option><option>Habilitation familiale</option>
+        </select></label>
+        <label class="champ">Mandataire / organisme <input id="u-protMandataire"></label>
+        <label class="champ">Contact du mandataire <input id="u-protContact"></label>
+      </div>
+      <div style="margin-top:12px;font-weight:700;font-size:12.5px;color:var(--texte-2)">AIDANTS ET CONTACTS D'URGENCE</div>
+      <div id="u-entourage"></div>
+      <button class="btn secondaire petit" onclick="ajouterLigne('u-entourage', modeleEntourage())">➕ Ajouter un contact</button>
+    </div></details>
+
+    <details class="section"><summary>Équipe et partenaires</summary><div class="contenu">
+      <div class="grille">
+        <label class="champ">Référent principal <input id="u-referent" list="liste-pros"></label>
+      </div>
+      <div style="margin-top:12px;font-weight:700;font-size:12.5px;color:var(--texte-2)">INTERVENANTS PAR DOMAINE</div>
+      <div id="u-intervenants"></div>
+      <button class="btn secondaire petit" onclick="ajouterLigne('u-intervenants', modeleIntervenant())">➕ Ajouter un intervenant</button>
+      <div style="margin-top:12px;font-weight:700;font-size:12.5px;color:var(--texte-2)">PARTENAIRES (médecin traitant, CMP, ESAT…)</div>
+      <div id="u-partenaires"></div>
+      <button class="btn secondaire petit" onclick="ajouterLigne('u-partenaires', modelePartenaire())">➕ Ajouter un partenaire</button>
+    </div></details>
+
+    <details class="section" id="section-pp"><summary>Projet personnalisé</summary><div class="contenu">
+      <div class="grille">
+        <label class="champ">Date de signature <input id="u-ppSignature" placeholder="JJ/MM/AA ou « En cours »"></label>
+        <label class="champ">Prochain écrit prévu <input id="u-prochainEcrit"></label>
+      </div>
+      <label class="champ" style="margin-top:10px">Attentes exprimées par la personne
+        <textarea id="u-attentes" rows="2"></textarea></label>
+      <div style="margin-top:12px;font-weight:700;font-size:12.5px;color:var(--texte-2)">OBJECTIFS</div>
+      <div id="u-objectifs"></div>
+      <button class="btn secondaire petit" onclick="ajouterLigne('u-objectifs', modeleObjectif())">➕ Ajouter un objectif</button>
+      <div style="margin-top:14px">
+        <button class="btn secondaire petit" onclick="renouvelerPP()">🔄 Renouveler le PP (archiver la version actuelle)</button>
+        <span id="u-nb-archives" class="muet" style="font-size:12.5px;margin-left:8px"></span>
+      </div>
+      <div id="u-historique-pp"></div>
+    </div></details>
+
+    <details class="section"><summary>Notes horodatées</summary><div class="contenu">
+      <div style="display:flex;gap:8px">
+        <input id="u-nouvelle-note" placeholder="Nouvelle note…" style="flex:1;padding:8px 10px;border:1px solid var(--bord);border-radius:8px;background:var(--carte);color:var(--texte)">
+        <button class="btn secondaire petit" onclick="ajouterNoteUsager()">Ajouter</button>
+      </div>
+      <div id="u-notes"></div>
+    </div></details>
   </div>
   <div class="modal-pied">
-    <button class="btn danger" id="btn-supprimer" onclick="supprimerUsager()">🗑 Supprimer l'usager</button>
+    <button class="btn danger" id="u-supprimer" onclick="supprimerUsager()">🗑 Supprimer</button>
     <span style="flex:1"></span>
-    <button class="btn secondaire" onclick="document.getElementById('modal').close()">Annuler</button>
-    <button class="btn primaire" style="background:var(--entete);color:#fff" onclick="enregistrerUsager()">✔ Enregistrer</button>
+    <button class="btn secondaire" onclick="fermer('modal-usager')">Annuler</button>
+    <button class="btn plein" onclick="enregistrerUsager()">✔ Enregistrer</button>
   </div>
 </dialog>
 
-<!-- Données initiales (chargées uniquement au premier lancement) -->
+<dialog id="modal-echeance" class="etroit">
+  <div class="modal-tete"><span>Échéance</span><button class="btn" onclick="fermer('modal-echeance')">✕</button></div>
+  <div class="modal-corps">
+    <label class="champ">Intitulé <input id="e-titre" placeholder="ex : Rendez-vous MDPH"></label>
+    <div class="grille" style="margin-top:10px">
+      <label class="champ">Date <input type="date" id="e-date"></label>
+      <label class="champ">Responsable <input id="e-responsable" list="liste-pros"></label>
+    </div>
+    <label class="champ" style="margin-top:10px">Usager concerné <select id="e-usager"><option value="">—</option></select></label>
+  </div>
+  <div class="modal-pied">
+    <button class="btn danger" id="e-supprimer" onclick="supprimerEcheance()">🗑</button>
+    <span style="flex:1"></span>
+    <button class="btn secondaire" onclick="fermer('modal-echeance')">Annuler</button>
+    <button class="btn plein" onclick="enregistrerEcheance()">✔ Enregistrer</button>
+  </div>
+</dialog>
+
+<dialog id="modal-attente" class="etroit">
+  <div class="modal-tete"><span>Candidature</span><button class="btn" onclick="fermer('modal-attente')">✕</button></div>
+  <div class="modal-corps">
+    <div class="grille">
+      <label class="champ">Nom <input id="a-nom"></label>
+      <label class="champ">Prénom <input id="a-prenom"></label>
+      <label class="champ">Naissance <input id="a-naissance" placeholder="JJ/MM/AAAA"></label>
+      <label class="champ">Reçu le <input type="date" id="a-recu"></label>
+      <label class="champ">Fin de notification <input id="a-notifFin" placeholder="JJ/MM/AA"></label>
+      <label class="champ">Priorité <select id="a-priorite"><option>Normale</option><option>Haute</option><option>Basse</option></select></label>
+      <label class="champ">Décision <select id="a-decision"><option>En attente</option><option>Favorable</option><option>Défavorable</option></select></label>
+    </div>
+    <label class="champ" style="margin-top:10px">Suivi des contacts / remarques <textarea id="a-note" rows="3"></textarea></label>
+  </div>
+  <div class="modal-pied">
+    <button class="btn danger" id="a-supprimer" onclick="supprimerCandidature()">🗑</button>
+    <span style="flex:1"></span>
+    <button class="btn secondaire" onclick="fermer('modal-attente')">Annuler</button>
+    <button class="btn plein" onclick="enregistrerCandidature()">✔ Enregistrer</button>
+  </div>
+</dialog>
+
+<dialog id="modal-ecrit" class="etroit">
+  <div class="modal-tete"><span>Écrit à produire</span><button class="btn" onclick="fermer('modal-ecrit')">✕</button></div>
+  <div class="modal-corps">
+    <div class="grille">
+      <label class="champ">Usager <select id="w-usager"></select></label>
+      <label class="champ">Type <select id="w-type">
+        <option>Bilan intermédiaire</option><option>Renouvellement du projet</option>
+        <option>Note de situation</option><option>Autre</option></select></label>
+      <label class="champ">Échéance <input type="date" id="w-echeance"></label>
+      <label class="champ">Statut <select id="w-statut">
+        <option>Demandé</option><option>En cours</option><option>Transmis</option><option>Validé</option></select></label>
+    </div>
+    <label class="champ" style="margin-top:10px">Note <textarea id="w-note" rows="2"></textarea></label>
+  </div>
+  <div class="modal-pied">
+    <button class="btn danger" id="w-supprimer" onclick="supprimerEcrit()">🗑</button>
+    <span style="flex:1"></span>
+    <button class="btn secondaire" onclick="fermer('modal-ecrit')">Annuler</button>
+    <button class="btn plein" onclick="enregistrerEcrit()">✔ Enregistrer</button>
+  </div>
+</dialog>
+
+<dialog id="modal-parametres" class="etroit">
+  <div class="modal-tete"><span>Paramètres du service</span><button class="btn" onclick="fermer('modal-parametres')">✕</button></div>
+  <div class="modal-corps">
+    <div class="grille">
+      <label class="champ">Nom du service (sous-titre) <input id="p-titre"></label>
+      <label class="champ">Capacité de l'agrément (places) <input type="number" id="p-capacite" min="1"></label>
+      <label class="champ">Durée d'observation (mois) <input type="number" id="p-obs" min="1" max="12"></label>
+    </div>
+  </div>
+  <div class="modal-pied">
+    <button class="btn secondaire" onclick="fermer('modal-parametres')">Annuler</button>
+    <button class="btn plein" onclick="enregistrerParametres()">✔ Enregistrer</button>
+  </div>
+</dialog>
+
+<dialog id="modal-code" class="etroit">
+  <div class="modal-tete"><span>Code d'accès</span><button class="btn" onclick="fermer('modal-code')">✕</button></div>
+  <div class="modal-corps">
+    <p style="font-size:13.5px;color:var(--texte-2);margin-top:0">
+      Avec un code, les données sont chiffrées sur ce poste (AES-256) et le code est demandé
+      à chaque ouverture. <b>Si le code est perdu, les données sont irrécupérables</b> —
+      gardez un export JSON de secours en lieu sûr.</p>
+    <div class="grille">
+      <label class="champ" id="l-code-actuel">Code actuel <input type="password" id="c-actuel"></label>
+      <label class="champ">Nouveau code (vide = retirer) <input type="password" id="c-nouveau"></label>
+      <label class="champ">Confirmer le nouveau code <input type="password" id="c-confirme"></label>
+    </div>
+    <div class="erreur" id="c-erreur" style="color:var(--rouge);font-size:13px;min-height:18px;margin-top:8px"></div>
+  </div>
+  <div class="modal-pied">
+    <button class="btn secondaire" onclick="fermer('modal-code')">Annuler</button>
+    <button class="btn plein" onclick="appliquerCode()">✔ Appliquer</button>
+  </div>
+</dialog>
+
+<dialog id="modal-sauvegardes" class="etroit">
+  <div class="modal-tete"><span>Copies de secours automatiques</span><button class="btn" onclick="fermer('modal-sauvegardes')">✕</button></div>
+  <div class="modal-corps">
+    <p style="font-size:13.5px;color:var(--texte-2);margin-top:0">Une copie est créée automatiquement
+      à la première ouverture de la journée (10 copies conservées).</p>
+    <div id="liste-sauvegardes"></div>
+  </div>
+  <div class="modal-pied"><button class="btn secondaire" onclick="fermer('modal-sauvegardes')">Fermer</button></div>
+</dialog>
+
+<div id="verrou"><div class="boite">
+  <h2>🔐 Coordination SAMSAH</h2>
+  <p>Les données de ce poste sont chiffrées.<br>Saisissez le code d'accès.</p>
+  <input type="password" id="verrou-code" autocomplete="off">
+  <div class="erreur" id="verrou-erreur"></div>
+  <button class="btn plein" style="width:100%" onclick="deverrouiller()">Ouvrir</button>
+</div></div>
+
+<div id="toast" hidden></div>
+<datalist id="liste-pros"></datalist>
 <script id="seed" type="application/json">
 {
- "titre": "Tableau global des projets — SAMSAH",
+ "version": 2,
+ "titre": "SAMSAH — démonstration (données fictives)",
+ "parametres": { "capacite": 30, "dureeObservationMois": 3 },
  "usagers": [
-  {"id": 1, "nom": "EXEMPLE", "prenom": "Jean", "naissance": "15/03/1985", "referent": "Référent A",
-   "signaturePP": "10/01/25", "finNotification": "31/12/27", "prochainEcrit": "",
-   "note": "",
-   "objectifs": [
-     {"domaine": "Educatif", "texte": "1. Expérimenter des sorties en autonomie", "statut": "En cours"},
-     {"domaine": "Soin", "texte": "1. Accompagner monsieur dans son suivi médical", "statut": "En cours"}
-   ]},
-  {"id": 2, "nom": "DEMO", "prenom": "Marie", "naissance": "04/09/1982", "referent": "Référent B",
-   "signaturePP": "En cours", "finNotification": "30/09/26", "prochainEcrit": "",
-   "note": "Période d'observation en cours", "objectifs": []}
+  {"id":1,"nom":"PAYET","prenom":"Julien","naissance":"12/03/89","sexe":"H","adresse":"12 chemin des Letchis, Saint-Paul","telephone":"0692 00 00 01","email":"",
+   "statut":"actif","admission":"2024-11-04","sortie":"","motifSortie":"","note":"",
+   "mdph":{"numero":"974-2024-1101","notifDebut":"01/11/24","notifFin":"31/03/28","deficience":"TSA","renouvDepose":false,"dateDepot":""},
+   "protection":{"type":"Curatelle renforcée","mandataire":"UDAF 974","contact":"0262 00 00 10"},
+   "entourage":[{"nom":"PAYET Monique","lien":"Mère (aidante)","telephone":"0692 00 00 02"}],
+   "equipe":{"referent":"Camille","intervenants":[{"domaine":"Psychologie","nom":"Sonia"},{"domaine":"Soin","nom":"Marc"}]},
+   "partenaires":[{"nom":"Dr HOARAU","role":"Médecin traitant","contact":"0262 00 00 20"},{"nom":"CMP Ouest","role":"Suivi psychiatrique","contact":""}],
+   "pp":{"attentes":"Sortir davantage, préparer un séjour de répit.","signature":"15/01/25","prochainEcrit":"",
+     "objectifs":[
+      {"domaine":"Educatif","texte":"1. Expérimenter des sorties en autonomie\n2. Préparer un séjour de répit","moyens":"Sorties hebdomadaires accompagnées puis seul","statut":"En cours","echeance":"","responsable":"Camille"},
+      {"domaine":"Soin","texte":"1. Reprendre un suivi médical régulier","moyens":"Lien avec le médecin traitant et le CMP","statut":"En cours","echeance":"","responsable":"Marc"},
+      {"domaine":"Psychologie","texte":"1. Entretiens psychologiques mensuels","moyens":"","statut":"En cours","echeance":"","responsable":"Sonia"}],
+     "historique":[]},
+   "notes":[{"date":"2026-06-12","texte":"Séjour de répit validé par la famille pour octobre."}]},
+  {"id":2,"nom":"HOARAU","prenom":"Marie","naissance":"04/09/82","sexe":"F","adresse":"","telephone":"","email":"",
+   "statut":"observation","admission":"2026-05-15","sortie":"","motifSortie":"","note":"Période d'observation en cours",
+   "mdph":{"numero":"","notifDebut":"","notifFin":"30/09/26","deficience":"Handicap psychique","renouvDepose":false,"dateDepot":""},
+   "protection":{"type":"Aucune","mandataire":"","contact":""},"entourage":[],
+   "equipe":{"referent":"Sonia","intervenants":[]},"partenaires":[],
+   "pp":{"attentes":"","signature":"En cours","prochainEcrit":"","objectifs":[],"historique":[]},"notes":[]},
+  {"id":3,"nom":"FONTAINE","prenom":"Abdel","naissance":"22/02/99","sexe":"H","adresse":"","telephone":"","email":"",
+   "statut":"actif","admission":"2024-02-01","sortie":"","motifSortie":"","note":"",
+   "mdph":{"numero":"974-2023-0456","notifDebut":"01/11/23","notifFin":"31/10/26","deficience":"TSA","renouvDepose":true,"dateDepot":"2026-05-20"},
+   "protection":{"type":"Aucune","mandataire":"","contact":""},"entourage":[],
+   "equipe":{"referent":"Marc","intervenants":[]},"partenaires":[],
+   "pp":{"attentes":"","signature":"13/02/24","prochainEcrit":"Bilan intermédiaire",
+     "objectifs":[{"domaine":"Social","texte":"1. Soutenir monsieur dans ses démarches administratives","moyens":"","statut":"En cours","echeance":"","responsable":"Marc"}],
+     "historique":[]},"notes":[]},
+  {"id":4,"nom":"RIVIÈRE","prenom":"Noé","naissance":"08/03/02","sexe":"H","adresse":"","telephone":"","email":"",
+   "statut":"actif","admission":"2025-05-01","sortie":"","motifSortie":"","note":"",
+   "mdph":{"numero":"","notifDebut":"","notifFin":"31/01/26","deficience":"Déficience intellectuelle","renouvDepose":false,"dateDepot":""},
+   "protection":{"type":"Tutelle","mandataire":"ATG","contact":""},"entourage":[],
+   "equipe":{"referent":"Marc","intervenants":[{"domaine":"Psychomotricité","nom":"Isabelle"}]},"partenaires":[],
+   "pp":{"attentes":"","signature":"05/06/25","prochainEcrit":"",
+     "objectifs":[{"domaine":"Psychomotricité","texte":"1. Maintenir les capacités préservées","moyens":"","statut":"En cours","echeance":"","responsable":"Isabelle"},
+      {"domaine":"Educatif","texte":"1. Rechercher une activité occupationnelle","moyens":"","statut":"En pause","echeance":"","responsable":"Marc"}],
+     "historique":[]},"notes":[]},
+  {"id":5,"nom":"TECHER","prenom":"Jeanne","naissance":"28/01/78","sexe":"F","adresse":"","telephone":"","email":"",
+   "statut":"fin","admission":"2019-11-12","sortie":"","motifSortie":"","note":"Fin d'accompagnement",
+   "mdph":{"numero":"","notifDebut":"","notifFin":"31/12/25","deficience":"Handicap psychique","renouvDepose":false,"dateDepot":""},
+   "protection":{"type":"Aucune","mandataire":"","contact":""},"entourage":[],
+   "equipe":{"referent":"Sonia","intervenants":[]},"partenaires":[],
+   "pp":{"attentes":"","signature":"12/11/19","prochainEcrit":"","objectifs":[],"historique":[]},"notes":[]},
+  {"id":6,"nom":"MAILLOT","prenom":"Édith","naissance":"13/11/73","sexe":"F","adresse":"","telephone":"","email":"",
+   "statut":"actif","admission":"2026-04-01","sortie":"","motifSortie":"","note":"",
+   "mdph":{"numero":"","notifDebut":"","notifFin":"30/09/28","deficience":"Polyhandicap","renouvDepose":false,"dateDepot":""},
+   "protection":{"type":"Habilitation familiale","mandataire":"M. MAILLOT (frère)","contact":""},"entourage":[],
+   "equipe":{"referent":"Camille","intervenants":[{"domaine":"Ergothérapie","nom":"Paul"}]},"partenaires":[],
+   "pp":{"attentes":"","signature":"05/06/26","prochainEcrit":"",
+     "objectifs":[{"domaine":"Ergothérapie","texte":"1. Réaliser un bilan en ergothérapie","moyens":"","statut":"En cours","echeance":"","responsable":"Paul"},
+      {"domaine":"Soin","texte":"1. Renforcer le suivi médical","moyens":"","statut":"En cours","echeance":"","responsable":"Marc"}],
+     "historique":[]},"notes":[]}
+ ],
+ "echeancesManuelles":[
+  {"id":1,"date":"2026-07-09","titre":"Synthèse d'équipe hebdomadaire","usagerId":null,"responsable":"Camille","fait":false}
+ ],
+ "echeancesFaites":{},
+ "journal":[
+  {"id":1,"date":"2026-07-01","usagerId":1,"professionnel":"Camille","type":"VAD (visite à domicile)","duree":90,"note":"Préparation du séjour de répit."},
+  {"id":2,"date":"2026-07-02","usagerId":3,"professionnel":"Marc","type":"Coordination partenaire","duree":30,"note":"Point téléphonique avec la MDPH sur le renouvellement."},
+  {"id":3,"date":"2026-07-03","usagerId":2,"professionnel":"Sonia","type":"Entretien au service","duree":60,"note":"Entretien d'observation n°3."}
+ ],
+ "attente":[
+  {"id":1,"nom":"BOYER","prenom":"Lucas","naissance":"02/07/95","recu":"2026-06-10","notifFin":"31/05/29","priorite":"Haute","decision":"En attente","note":"Famille relancée le 25/06."}
+ ],
+ "ecrits":[
+  {"id":1,"usagerId":3,"type":"Bilan intermédiaire","echeance":"2026-08-13","statut":"En cours","note":""}
  ]
 }
 </script>
 
 <script>
 'use strict';
-
-/* ============================================================
-   Données & persistance
-   Les données sont enregistrées automatiquement dans le
-   navigateur (localStorage). Pensez à faire régulièrement
-   « Sauvegarder (JSON) » pour garder une copie de secours.
-   ============================================================ */
-const CLE_STOCKAGE = 'samsah-coordination-v1';
+/* =====================================================================
+   NOYAU — stockage IndexedDB, chiffrement, état, migration, dates
+   ===================================================================== */
+const BASE_STOCKAGE = 'samsah-coordination';
 const DOMAINES = ['Educatif', 'Social', 'Soin', 'Psychologie', 'Psychomotricité', 'Ergothérapie', 'Autre'];
-const STATUTS = ['En cours', 'Atteint', 'En pause', 'Abandonné'];
+const STATUTS_OBJ = ['À démarrer', 'En cours', 'Atteint', 'Partiellement atteint', 'En pause', 'Abandonné'];
+const LIBELLE_STATUT = { attente: 'Liste d’attente', observation: 'Observation', actif: 'Actif',
+                         fin: 'Fin d’accompagnement', sorti: 'Sorti' };
+const CLASSE_STATUT = { observation: 'vert', actif: 'bleu', fin: 'orange', sorti: 'gris' };
 
-let donnees;
-try {
-  donnees = JSON.parse(localStorage.getItem(CLE_STOCKAGE));
-} catch (e) { donnees = null; }
-if (!donnees || !Array.isArray(donnees.usagers)) {
-  donnees = JSON.parse(document.getElementById('seed').textContent);
+let donnees = null;       // état applicatif
+let codeActuel = null;    // code d'accès en mémoire (null = pas de chiffrement)
+let pileAnnulation = [];  // instantanés pour Ctrl+Z
+let pageActive = 'accueil';
+
+/* ---------- IndexedDB (clé/valeur minimal) ---------- */
+function bd() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open(BASE_STOCKAGE, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('kv');
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+}
+async function bdLire(cle) {
+  try {
+    const d = await bd();
+    return await new Promise((res, rej) => {
+      const t = d.transaction('kv').objectStore('kv').get(cle);
+      t.onsuccess = () => res(t.result); t.onerror = () => rej(t.error);
+    });
+  } catch (e) { // repli localStorage
+    const v = localStorage.getItem(BASE_STOCKAGE + ':' + cle);
+    return v ? JSON.parse(v) : undefined;
+  }
+}
+async function bdEcrire(cle, valeur) {
+  try {
+    const d = await bd();
+    await new Promise((res, rej) => {
+      const t = d.transaction('kv', 'readwrite').objectStore('kv').put(valeur, cle);
+      t.onsuccess = res; t.onerror = () => rej(t.error);
+    });
+  } catch (e) {
+    localStorage.setItem(BASE_STOCKAGE + ':' + cle, JSON.stringify(valeur));
+  }
 }
 
-let tri = { colonne: 'nom', sens: 1 };
-let filtreStat = 'tous';
-let idOuvert = null;   // ligne dépliée
-let idEdition = null;  // usager en cours d'édition (null = nouveau)
-
-function sauvegarder() {
-  localStorage.setItem(CLE_STOCKAGE, JSON.stringify(donnees));
-  const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  document.getElementById('info-sauvegarde').textContent = 'Enregistré à ' + h;
+/* ---------- Chiffrement (AES-GCM, clé dérivée du code par PBKDF2) ---------- */
+const enc = new TextEncoder(), dec = new TextDecoder();
+const b64 = o => btoa(String.fromCharCode(...new Uint8Array(o)));
+const deB64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function deriverCle(code, sel) {
+  const brut = await crypto.subtle.importKey('raw', enc.encode(code), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: sel, iterations: 150000, hash: 'SHA-256' },
+    brut, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function chiffrerTexte(texte, code) {
+  const sel = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const cle = await deriverCle(code, sel);
+  const blob = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, cle, enc.encode(texte));
+  return { chiffre: true, sel: b64(sel), iv: b64(iv), blob: b64(blob) };
+}
+async function dechiffrerTexte(p, code) {
+  const cle = await deriverCle(code, deB64(p.sel));
+  const clair = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: deB64(p.iv) }, cle, deB64(p.blob));
+  return dec.decode(clair);
 }
 
-/* ============================================================
-   Dates : lecture tolérante de JJ/MM/AA ou JJ/MM/AAAA
-   ============================================================ */
+/* ---------- Persistance ---------- */
+async function fabriquerPayload() {
+  const texte = JSON.stringify(donnees);
+  return codeActuel ? await chiffrerTexte(texte, codeActuel) : { chiffre: false, donnees: JSON.parse(texte) };
+}
+let persistancePrevue = null;
+function planifierPersistance() {
+  clearTimeout(persistancePrevue);
+  persistancePrevue = setTimeout(async () => {
+    await bdEcrire('etat', await fabriquerPayload());
+    const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('info-sauvegarde').textContent =
+      (codeActuel ? '🔐 ' : '') + 'Enregistré à ' + h;
+  }, 250);
+}
+/* Toute modification passe par muter() : instantané Ctrl+Z + sauvegarde + affichage */
+function muter(fn) {
+  pileAnnulation.push(JSON.stringify(donnees));
+  if (pileAnnulation.length > 30) pileAnnulation.shift();
+  fn();
+  planifierPersistance();
+  rafraichir();
+}
+function annuler() {
+  if (!pileAnnulation.length) { toast('Rien à annuler'); return; }
+  donnees = JSON.parse(pileAnnulation.pop());
+  planifierPersistance();
+  rafraichir();
+  toast('Dernière action annulée');
+}
+
+/* ---------- Copies de secours (1/jour, 10 conservées) ---------- */
+async function copieDeSecours() {
+  const liste = (await bdLire('sauvegardes')) || [];
+  const derniere = liste[liste.length - 1];
+  if (derniere && Date.now() - derniere.quand < 20 * 3600 * 1000) return;
+  liste.push({ quand: Date.now(), payload: await fabriquerPayload() });
+  while (liste.length > 10) liste.shift();
+  await bdEcrire('sauvegardes', liste);
+}
+
+/* ---------- Dates (tolérant : JJ/MM/AA, JJ/MM/AAAA, AAAA-MM-JJ) ---------- */
 function lireDate(s, naissance) {
   if (!s) return null;
-  const m = String(s).replace(/\s| /g, '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
+  s = String(s).trim();
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) { const d = new Date(+m[1], +m[2] - 1, +m[3]); return isNaN(d) ? null : d; }
+  m = s.replace(/\s| /g, '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
   if (!m) return null;
-  let [ , j, mo, a ] = m.map(Number);
+  let j = +m[1], mo = +m[2], a = +m[3];
   if (a < 100) {
-    const anneeCourante = new Date().getFullYear() % 100;
-    // dates de naissance : 69 → 1969 ; échéances : toujours 20xx
-    a += (naissance && a > anneeCourante) ? 1900 : 2000;
+    const aa = new Date().getFullYear() % 100;
+    a += (naissance && a > aa) ? 1900 : 2000;
   }
   const d = new Date(a, mo - 1, j);
   return isNaN(d) ? null : d;
 }
+const AUJ = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+function fmtDate(x) { // affiche JJ/MM/AA quel que soit le format stocké
+  const d = x instanceof Date ? x : lireDate(x);
+  if (!d) return x || '';
+  return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+}
+function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function ajouterMois(d, n) { const r = new Date(d); r.setMonth(r.getMonth() + n); return r; }
 function calculerAge(naissance) {
   const d = lireDate(naissance, true);
   if (!d) return null;
-  const auj = new Date();
-  let age = auj.getFullYear() - d.getFullYear();
-  if (auj.getMonth() < d.getMonth() ||
-     (auj.getMonth() === d.getMonth() && auj.getDate() < d.getDate())) age--;
+  const a = AUJ();
+  let age = a.getFullYear() - d.getFullYear();
+  if (a.getMonth() < d.getMonth() || (a.getMonth() === d.getMonth() && a.getDate() < d.getDate())) age--;
   return age;
 }
-/* État d'échéance : 'echue' | 'bientot' (< 6 mois) | 'ok' | null */
 function etatEcheance(s) {
   const d = lireDate(s);
   if (!d) return null;
-  const auj = new Date();
-  if (d < auj) return 'echue';
-  const dans6mois = new Date(auj); dans6mois.setMonth(auj.getMonth() + 6);
-  return d < dans6mois ? 'bientot' : 'ok';
+  const a = AUJ();
+  if (d < a) return 'echue';
+  if (d < ajouterMois(a, 3)) return 'tresProche';
+  if (d < ajouterMois(a, 6)) return 'bientot';
+  return 'ok';
 }
 
-/* ============================================================
-   Affichage
-   ============================================================ */
-const eh = s => String(s ?? '').replace(/[&<>"']/g,
-  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-function classeDomaine(d) {
-  return d.normalize('NFD').replace(/[̀-ͯ]/g, '');
+/* ---------- Migration V1 → V2 ---------- */
+function usagerVide() {
+  return { id: 0, nom: '', prenom: '', naissance: '', sexe: '', adresse: '', telephone: '', email: '',
+    statut: 'actif', admission: '', sortie: '', motifSortie: '', note: '',
+    mdph: { numero: '', notifDebut: '', notifFin: '', deficience: '', renouvDepose: false, dateDepot: '' },
+    protection: { type: 'Aucune', mandataire: '', contact: '' },
+    entourage: [], equipe: { referent: '', intervenants: [] }, partenaires: [],
+    pp: { attentes: '', signature: '', prochainEcrit: '', objectifs: [], historique: [] },
+    notes: [] };
+}
+function migrer(d) {
+  if (!d) return null;
+  if (d.version >= 2) {
+    // compléter les champs manquants (robustesse)
+    d.usagers = (d.usagers || []).map(u => Object.assign(usagerVide(), u, {
+      mdph: Object.assign(usagerVide().mdph, u.mdph),
+      protection: Object.assign(usagerVide().protection, u.protection),
+      equipe: Object.assign(usagerVide().equipe, u.equipe),
+      pp: Object.assign(usagerVide().pp, u.pp),
+    }));
+    for (const c of ['echeancesManuelles', 'journal', 'attente', 'ecrits']) d[c] = d[c] || [];
+    d.echeancesFaites = d.echeancesFaites || {};
+    d.parametres = Object.assign({ capacite: 30, dureeObservationMois: 3 }, d.parametres);
+    return d;
+  }
+  // format V1 : { titre, usagers:[{nom, prenom, naissance, referent, signaturePP, finNotification, prochainEcrit, note, objectifs}] }
+  const v2 = { version: 2, titre: d.titre || 'SAMSAH', parametres: { capacite: 30, dureeObservationMois: 3 },
+    usagers: [], echeancesManuelles: [], echeancesFaites: {}, journal: [], attente: [], ecrits: [] };
+  for (const a of (d.usagers || [])) {
+    const u = usagerVide();
+    u.id = a.id; u.nom = a.nom || ''; u.prenom = a.prenom || ''; u.naissance = a.naissance || '';
+    u.note = a.note || '';
+    u.statut = /observation/i.test(u.note) ? 'observation' : /fin d.accompagnement/i.test(u.note) ? 'fin' : 'actif';
+    u.mdph.notifFin = a.finNotification || '';
+    u.equipe.referent = a.referent || '';
+    u.pp.signature = a.signaturePP || '';
+    u.pp.prochainEcrit = a.prochainEcrit || '';
+    u.pp.objectifs = (a.objectifs || []).map(o => ({ domaine: o.domaine || 'Autre', texte: o.texte || '',
+      moyens: '', statut: o.statut || 'En cours', echeance: '', responsable: '' }));
+    v2.usagers.push(u);
+  }
+  return v2;
 }
 
-function usagersFiltres() {
-  const q = document.getElementById('recherche').value.trim().toLowerCase();
-  const ref = document.getElementById('filtre-referent').value;
-  let liste = donnees.usagers.filter(u => {
-    if (ref && u.referent !== ref) return false;
-    if (filtreStat === 'echues'  && etatEcheance(u.finNotification) !== 'echue') return false;
-    if (filtreStat === 'bientot' && etatEcheance(u.finNotification) !== 'bientot') return false;
-    if (filtreStat === 'observation' && !/observation/i.test(u.note || '')) return false;
-    if (!q) return true;
-    const texte = [u.nom, u.prenom, u.referent, u.note,
-      ...(u.objectifs || []).map(o => o.domaine + ' ' + o.texte + ' ' + o.statut)]
-      .join(' ').toLowerCase();
-    return q.split(/\s+/).every(mot => texte.includes(mot));
+/* ---------- Utilitaires ---------- */
+const eh = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const classeDomaine = d => (d || 'Autre').normalize('NFD').replace(/[̀-ͯ]/g, '');
+const parId = id => donnees.usagers.find(u => u.id === id);
+const nomComplet = u => u ? (u.nom + ' ' + u.prenom).trim() : '—';
+const prochainId = liste => Math.max(0, ...liste.map(x => x.id || 0)) + 1;
+const fileActive = () => donnees.usagers.filter(u => u.statut === 'actif' || u.statut === 'observation');
+let toastPrevu = null;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.hidden = false;
+  requestAnimationFrame(() => t.classList.add('visible'));
+  clearTimeout(toastPrevu);
+  toastPrevu = setTimeout(() => t.classList.remove('visible'), 2600);
+}
+function fermer(id) { document.getElementById(id).close(); }
+function professionnels() {
+  const s = new Set();
+  for (const u of donnees.usagers) {
+    if (u.equipe.referent) s.add(u.equipe.referent);
+    for (const i of u.equipe.intervenants) if (i.nom) s.add(i.nom);
+  }
+  for (const j of donnees.journal) if (j.professionnel) s.add(j.professionnel);
+  return [...s].sort((a, b) => a.localeCompare(b, 'fr'));
+}
+
+/* ---------- Échéances automatiques + manuelles ---------- */
+function toutesEcheances() {
+  const liste = [];
+  const faites = donnees.echeancesFaites;
+  const pousser = (cle, date, titre, u, resp) => {
+    const d = date instanceof Date ? (isNaN(date) ? null : date) : lireDate(date);
+    if (!d) return;
+    liste.push({ cle, date: d, titre, usagerId: u ? u.id : null, usager: u ? nomComplet(u) : '',
+      responsable: resp || (u ? u.equipe.referent : ''), fait: !!faites[cle], manuelle: false });
+  };
+  for (const u of donnees.usagers) {
+    if (u.statut === 'sorti') continue;
+    const fin = lireDate(u.mdph.notifFin);
+    if (fin && !u.mdph.renouvDepose) {
+      pousser('n6:' + u.id, ajouterMois(fin, -6), 'Préparer le renouvellement MDPH (6 mois avant échéance)', u);
+      pousser('n3:' + u.id, ajouterMois(fin, -3), 'Déposer le renouvellement MDPH (3 mois avant échéance)', u);
+    }
+    if (fin) pousser('nf:' + u.id, fin, 'Fin de notification SAMSAH', u);
+    const sig = lireDate(u.pp.signature);
+    if (sig && (u.statut === 'actif' || u.statut === 'observation')) {
+      pousser('bi:' + u.id + ':' + iso(sig), ajouterMois(sig, 6), 'Bilan intermédiaire du PP', u);
+      pousser('rn:' + u.id + ':' + iso(sig), ajouterMois(sig, 12), 'Renouvellement du projet personnalisé', u);
+    }
+    if (u.statut === 'observation' && u.admission)
+      pousser('ob:' + u.id, ajouterMois(lireDate(u.admission), donnees.parametres.dureeObservationMois),
+        'Fin de la période d’observation', u);
+  }
+  for (const w of donnees.ecrits) {
+    if (w.statut === 'Validé' || !w.echeance) continue;
+    const u = parId(w.usagerId);
+    pousser('ec:' + w.id, w.echeance, 'Écrit : ' + w.type + (w.statut !== 'Demandé' ? ' (' + w.statut.toLowerCase() + ')' : ''), u);
+  }
+  for (const m of donnees.echeancesManuelles) {
+    const d = lireDate(m.date);
+    if (!d) continue;
+    const u = parId(m.usagerId);
+    liste.push({ cle: 'man:' + m.id, id: m.id, date: d, titre: m.titre, usagerId: m.usagerId,
+      usager: u ? nomComplet(u) : '', responsable: m.responsable || '', fait: !!m.fait, manuelle: true });
+  }
+  liste.sort((a, b) => a.date - b.date);
+  return liste;
+}
+function basculerEcheance(cle) {
+  muter(() => {
+    if (cle.startsWith('man:')) {
+      const m = donnees.echeancesManuelles.find(x => 'man:' + x.id === cle);
+      if (m) m.fait = !m.fait;
+    } else {
+      if (donnees.echeancesFaites[cle]) delete donnees.echeancesFaites[cle];
+      else donnees.echeancesFaites[cle] = true;
+    }
   });
-  const c = tri.colonne;
+}
+</script>
+<script>
+'use strict';
+/* =====================================================================
+   VUES — rendu de chaque onglet
+   ===================================================================== */
+let triU = { colonne: 'nom', sens: 1 };
+let filtreU = 'tous';
+let idOuvert = null;
+let vueCalendrier = false;
+let moisCourant = null; // Date du 1er du mois affiché
+
+function requete() { return document.getElementById('recherche').value.trim().toLowerCase(); }
+function correspond(texte) {
+  const q = requete();
+  if (!q) return true;
+  texte = texte.toLowerCase();
+  return q.split(/\s+/).every(mot => texte.includes(mot));
+}
+
+function allerPage(nom) {
+  pageActive = nom;
+  document.querySelectorAll('#onglets button').forEach(b => b.classList.toggle('actif', b.dataset.page === nom));
+  document.querySelectorAll('section.page').forEach(s => s.classList.toggle('actif', s.id === 'page-' + nom));
+  rafraichir();
+}
+
+function rafraichir() {
+  majListesDeroulantes();
+  majPastilles();
+  ({ accueil: afficherAccueil, usagers: afficherUsagers, echeancier: afficherEcheancier,
+     journal: afficherJournal, attente: afficherAttente, ecrits: afficherEcrits,
+     stats: afficherStats })[pageActive]();
+}
+
+function majPastilles() {
+  const retards = toutesEcheances().filter(e => !e.fait && e.date < AUJ()).length;
+  const btn = document.querySelector('#onglets button[data-page="echeancier"]');
+  btn.innerHTML = '📅 Échéancier' + (retards ? ` <span class="pastille">${retards}</span>` : '');
+  document.getElementById('sous-titre').textContent = donnees.titre || '';
+}
+
+function majListesDeroulantes() {
+  const pros = professionnels();
+  document.getElementById('liste-pros').innerHTML = pros.map(p => `<option value="${eh(p)}">`).join('');
+  const referents = [...new Set(donnees.usagers.map(u => u.equipe.referent).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
+  for (const [id, vide] of [['filtre-referent', 'Tous les référents'], ['jf-pro', 'Tous les professionnels']]) {
+    const sel = document.getElementById(id), v = sel.value;
+    const source = id === 'jf-pro' ? pros : referents;
+    sel.innerHTML = `<option value="">${vide}</option>` +
+      source.map(r => `<option${r === v ? ' selected' : ''}>${eh(r)}</option>`).join('');
+  }
+  for (const id of ['j-usager', 'jf-usager', 'e-usager', 'w-usager']) {
+    const sel = document.getElementById(id), v = sel.value;
+    const premier = id === 'jf-usager' ? '<option value="">Tous les usagers</option>'
+                  : id === 'e-usager' ? '<option value="">—</option>' : '';
+    sel.innerHTML = premier + donnees.usagers
+      .filter(u => u.statut !== 'sorti' || String(u.id) === v)
+      .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
+      .map(u => `<option value="${u.id}"${String(u.id) === v ? ' selected' : ''}>${eh(nomComplet(u))}</option>`).join('');
+  }
+}
+
+/* ---------------- Tableau de bord ---------------- */
+function afficherAccueil() {
+  const actifs = fileActive();
+  const capacite = donnees.parametres.capacite || 1;
+  const annee = AUJ().getFullYear(), mois = AUJ().getMonth();
+  const entreesMois = donnees.usagers.filter(u => { const d = lireDate(u.admission); return d && d.getFullYear() === annee && d.getMonth() === mois; }).length;
+  const sortiesMois = donnees.usagers.filter(u => { const d = lireDate(u.sortie); return d && d.getFullYear() === annee && d.getMonth() === mois; }).length;
+  const echues = actifs.filter(u => etatEcheance(u.mdph.notifFin) === 'echue').length;
+  const proches = actifs.filter(u => ['bientot', 'tresProche'].includes(etatEcheance(u.mdph.notifFin))).length;
+  const obs = donnees.usagers.filter(u => u.statut === 'observation').length;
+
+  document.getElementById('tuiles').innerHTML = `
+    <div class="tuile" onclick="allerPage('usagers')"><b>${actifs.length}</b><span>file active — ${Math.round(actifs.length / capacite * 100)} % de ${capacite} places</span></div>
+    <div class="tuile rouge" onclick="filtreU='echues';allerPage('usagers')"><b>${echues}</b><span>notifications échues</span></div>
+    <div class="tuile orange" onclick="filtreU='bientot';allerPage('usagers')"><b>${proches}</b><span>échéances &lt; 6 mois</span></div>
+    <div class="tuile vert" onclick="filtreU='observation';allerPage('usagers')"><b>${obs}</b><span>en observation</span></div>
+    <div class="tuile" onclick="allerPage('attente')"><b>${donnees.attente.filter(c => c.decision !== 'Défavorable').length}</b><span>en liste d'attente</span></div>
+    <div class="tuile"><b>${entreesMois}&nbsp;/&nbsp;${sortiesMois}</b><span>entrées / sorties du mois</span></div>`;
+
+  // À faire : retards + 7 prochains jours
+  const limite = new Date(AUJ()); limite.setDate(limite.getDate() + 7);
+  const items = toutesEcheances().filter(e => !e.fait && e.date <= limite).slice(0, 25);
+  document.getElementById('afaire').innerHTML = items.length ? items.map(e => `
+    <div class="tache ${e.date < AUJ() ? 'retard' : 'proche'}">
+      <input type="checkbox" onchange="basculerEcheance('${e.cle}')" title="Marquer comme fait">
+      <span class="date-t">${fmtDate(e.date)}</span>
+      <span style="flex:1">${eh(e.titre)}${e.usager ? ' — <b>' + eh(e.usager) + '</b>' : ''}</span>
+      <span class="muet" style="font-size:12px">${eh(e.responsable)}</span>
+    </div>`).join('')
+    : '<div class="vide">Rien d\'urgent cette semaine 👍</div>';
+
+  // Charge par référent
+  const parRef = {};
+  for (const u of actifs) parRef[u.equipe.referent || '(sans référent)'] = (parRef[u.equipe.referent || '(sans référent)'] || 0) + 1;
+  const max = Math.max(1, ...Object.values(parRef));
+  document.getElementById('charge').innerHTML = Object.entries(parRef)
+    .sort((a, b) => b[1] - a[1])
+    .map(([r, n]) => `<div class="barre-ligne"><span>${eh(r)}</span>
+      <span class="rail"><span class="rempli" style="width:${n / max * 100}%"></span></span>
+      <span class="val">${n}</span></div>`).join('') || '<span class="muet">Aucun usager actif.</span>';
+
+  const entreesAn = donnees.usagers.filter(u => { const d = lireDate(u.admission); return d && d.getFullYear() === annee; }).length;
+  const sortiesAn = donnees.usagers.filter(u => { const d = lireDate(u.sortie); return d && d.getFullYear() === annee; }).length;
+  document.getElementById('mouvements').innerHTML =
+    `<div class="barre-ligne"><span>Entrées ${annee}</span><span class="rail"><span class="rempli" style="width:${Math.min(100, entreesAn * 10)}%"></span></span><span class="val">${entreesAn}</span></div>
+     <div class="barre-ligne"><span>Sorties ${annee}</span><span class="rail"><span class="rempli" style="width:${Math.min(100, sortiesAn * 10)}%"></span></span><span class="val">${sortiesAn}</span></div>`;
+}
+
+/* ---------------- Usagers ---------------- */
+function texteUsager(u) {
+  return [u.nom, u.prenom, u.note, u.equipe.referent, u.mdph.numero, u.mdph.deficience,
+    u.pp.attentes, u.adresse,
+    ...u.pp.objectifs.map(o => o.domaine + ' ' + o.texte + ' ' + o.moyens + ' ' + o.statut + ' ' + o.responsable),
+    ...u.partenaires.map(p => p.nom + ' ' + p.role),
+    ...u.entourage.map(e2 => e2.nom + ' ' + e2.lien),
+    ...u.notes.map(n => n.texte)].join(' ');
+}
+function usagersFiltres() {
+  const ref = document.getElementById('filtre-referent').value;
+  const st = document.getElementById('filtre-statut').value;
+  let liste = donnees.usagers.filter(u => {
+    if (st ? u.statut !== st : u.statut === 'sorti') return false;
+    if (ref && u.equipe.referent !== ref) return false;
+    if (filtreU === 'echues' && etatEcheance(u.mdph.notifFin) !== 'echue') return false;
+    if (filtreU === 'bientot' && !['bientot', 'tresProche'].includes(etatEcheance(u.mdph.notifFin))) return false;
+    if (filtreU === 'observation' && u.statut !== 'observation') return false;
+    return correspond(texteUsager(u));
+  });
+  const c = triU.colonne;
   liste.sort((a, b) => {
     let va, vb;
     if (c === 'age') { va = calculerAge(a.naissance) ?? -1; vb = calculerAge(b.naissance) ?? -1; }
-    else if (c === 'signaturePP' || c === 'finNotification') {
-      va = lireDate(a[c])?.getTime() ?? Infinity; vb = lireDate(b[c])?.getTime() ?? Infinity;
-    } else { va = (a[c] || '').toLowerCase(); vb = (b[c] || '').toLowerCase(); }
-    return (va < vb ? -1 : va > vb ? 1 : 0) * tri.sens;
+    else if (c === 'notifFin') { va = lireDate(a.mdph.notifFin)?.getTime() ?? Infinity; vb = lireDate(b.mdph.notifFin)?.getTime() ?? Infinity; }
+    else if (c === 'referent') { va = a.equipe.referent.toLowerCase(); vb = b.equipe.referent.toLowerCase(); }
+    else { va = String(a[c] || '').toLowerCase(); vb = String(b[c] || '').toLowerCase(); }
+    return (va < vb ? -1 : va > vb ? 1 : 0) * triU.sens;
   });
   return liste;
 }
-
-function badgeEcheance(s) {
+function badgeNotif(s) {
   if (!s) return '<span class="muet">—</span>';
-  const etat = etatEcheance(s);
-  if (etat === 'echue')   return `<span class="badge rouge">⚠ ${eh(s)}</span>`;
-  if (etat === 'bientot') return `<span class="badge orange">⏳ ${eh(s)}</span>`;
-  return eh(s);
+  const e = etatEcheance(s);
+  if (e === 'echue') return `<span class="badge rouge">⚠ ${eh(fmtDate(s))}</span>`;
+  if (e === 'tresProche') return `<span class="badge rouge">⏳ ${eh(fmtDate(s))}</span>`;
+  if (e === 'bientot') return `<span class="badge orange">⏳ ${eh(fmtDate(s))}</span>`;
+  return eh(fmtDate(s));
 }
-
-function resumeObjectifs(u) {
-  const morceaux = [];
-  if (u.note) morceaux.push(`<span class="badge bleu">${eh(u.note)}</span>`);
-  if (u.objectifs?.length)
-    morceaux.push(`<span class="badge vert">${u.objectifs.length} objectif${u.objectifs.length > 1 ? 's' : ''}</span>`);
-  if (!morceaux.length) morceaux.push('<span class="badge gris">Aucun objectif saisi</span>');
-  return morceaux.join(' ');
-}
-
-function afficher() {
-  const corps = document.getElementById('corps-table');
+function afficherUsagers() {
+  const corps = document.getElementById('corps-usagers');
   const liste = usagersFiltres();
+  const actifs = fileActive();
+  document.getElementById('fu-total').textContent = actifs.length;
+  document.getElementById('fu-bientot').textContent = actifs.filter(u => ['bientot', 'tresProche'].includes(etatEcheance(u.mdph.notifFin))).length;
+  document.getElementById('fu-echues').textContent = actifs.filter(u => etatEcheance(u.mdph.notifFin) === 'echue').length;
+  document.getElementById('fu-obs').textContent = donnees.usagers.filter(u => u.statut === 'observation').length;
+  document.querySelectorAll('[data-fu]').forEach(s => s.classList.toggle('actif', s.dataset.fu === filtreU));
+  document.querySelectorAll('#page-usagers thead th[data-tri]').forEach(th => {
+    th.querySelector('.fleche').textContent = th.dataset.tri === triU.colonne ? (triU.sens === 1 ? '▲' : '▼') : '';
+  });
+
   corps.innerHTML = '';
-  if (!liste.length) {
-    corps.innerHTML = '<tr><td colspan="7" class="vide">Aucun usager ne correspond à la recherche.</td></tr>';
-  }
+  if (!liste.length) { corps.innerHTML = '<tr><td colspan="7" class="vide">Aucun usager ne correspond.</td></tr>'; return; }
   for (const u of liste) {
     const tr = document.createElement('tr');
     tr.className = 'ligne' + (u.id === idOuvert ? ' ouverte' : '');
     const age = calculerAge(u.naissance);
+    const resume = [];
+    if (u.note) resume.push(`<span class="badge bleu">${eh(u.note)}</span>`);
+    if (u.pp.objectifs.length) resume.push(`<span class="badge vert">${u.pp.objectifs.length} objectif${u.pp.objectifs.length > 1 ? 's' : ''}</span>`);
+    if (!resume.length) resume.push('<span class="badge gris">Aucun objectif saisi</span>');
     tr.innerHTML = `
-      <td class="nom">${eh(u.nom)}</td>
-      <td>${eh(u.prenom)}</td>
-      <td>${age !== null ? age + ' ans' : '<span class="muet">' + eh(u.naissance || '—') + '</span>'}</td>
-      <td>${eh(u.referent) || '<span class="muet">—</span>'}</td>
-      <td>${eh(u.signaturePP) || '<span class="muet">—</span>'}</td>
-      <td>${badgeEcheance(u.finNotification)}</td>
-      <td>${resumeObjectifs(u)}</td>`;
-    tr.onclick = () => { idOuvert = (idOuvert === u.id ? null : u.id); afficher(); };
+      <td class="nom">${eh(u.nom)}</td><td>${eh(u.prenom)}</td>
+      <td class="nombre">${age !== null ? age + ' ans' : '<span class="muet">' + eh(u.naissance || '—') + '</span>'}</td>
+      <td>${eh(u.equipe.referent) || '<span class="muet">—</span>'}</td>
+      <td><span class="badge ${CLASSE_STATUT[u.statut] || 'gris'}">${LIBELLE_STATUT[u.statut] || u.statut}</span></td>
+      <td>${badgeNotif(u.mdph.notifFin)}</td>
+      <td>${resume.join(' ')}</td>`;
+    tr.onclick = () => { idOuvert = idOuvert === u.id ? null : u.id; afficherUsagers(); };
     corps.appendChild(tr);
-
-    if (u.id === idOuvert) {
-      const trd = document.createElement('tr');
-      trd.className = 'detail';
-      const objs = (u.objectifs || []).map(o => `
-        <div class="objectif">
-          <span class="dom ${classeDomaine(o.domaine)}">${eh(o.domaine)}</span>
-          <span class="texte">${eh(o.texte)}</span>
-          <span><span class="badge ${o.statut === 'Atteint' ? 'vert' : o.statut === 'En cours' ? 'bleu' : 'gris'}">${eh(o.statut)}</span></span>
-        </div>`).join('');
-      trd.innerHTML = `<td colspan="7">
-        ${u.naissance ? `<p class="muet" style="margin:0 0 10px">Né(e) le ${eh(u.naissance)}${u.prochainEcrit ? ' · Prochain écrit : ' + eh(u.prochainEcrit) : ''}</p>` : ''}
-        ${u.note ? `<p style="margin:0 0 12px"><span class="badge bleu">${eh(u.note)}</span></p>` : ''}
-        <div class="objectifs">${objs || '<span class="muet">Aucun objectif saisi pour le moment.</span>'}</div>
-        <div class="detail-actions">
-          <button class="btn secondaire" onclick="event.stopPropagation(); ouvrirEdition(${u.id})">✏️ Modifier la fiche</button>
-        </div>
-      </td>`;
-      corps.appendChild(trd);
-    }
+    if (u.id === idOuvert) corps.appendChild(ligneDetail(u));
   }
-  majStats();
-  majFleches();
+}
+function ligneDetail(u) {
+  const tr = document.createElement('tr');
+  tr.className = 'detail';
+  const objs = u.pp.objectifs.map(o => `
+    <div class="objectif">
+      <span class="dom ${classeDomaine(o.domaine)}">${eh(o.domaine)}</span>
+      <span class="texte">${eh(o.texte)}${o.moyens ? `<span class="sous">Moyens : ${eh(o.moyens)}</span>` : ''}${o.responsable ? `<span class="sous">Responsable : ${eh(o.responsable)}${o.echeance ? ' · échéance ' + fmtDate(o.echeance) : ''}</span>` : ''}</span>
+      <span><span class="badge ${o.statut === 'Atteint' ? 'vert' : o.statut === 'En cours' ? 'bleu' : 'gris'}">${eh(o.statut)}</span></span>
+    </div>`).join('');
+  const dernieresNotes = u.notes.slice(0, 3).map(n =>
+    `<div class="note-item"><span class="qd">${fmtDate(n.date)}</span><p>${eh(n.texte)}</p></div>`).join('');
+  const interventions = donnees.journal.filter(j => j.usagerId === u.id).length;
+  tr.innerHTML = `<td colspan="7">
+    <div class="fiche-resume">
+      <div><b>Naissance</b>${eh(u.naissance ? fmtDate(u.naissance) : '—')}</div>
+      <div><b>MDPH</b>${eh(u.mdph.numero || '—')} · notif. ${eh(u.mdph.notifFin ? fmtDate(u.mdph.notifFin) : '—')}${u.mdph.renouvDepose ? ' · <span class="badge vert">renouvellement déposé</span>' : ''}</div>
+      <div><b>Protection</b>${eh(u.protection.type)}${u.protection.mandataire ? ' — ' + eh(u.protection.mandataire) : ''}</div>
+      <div><b>Signature PP</b>${eh(u.pp.signature ? fmtDate(u.pp.signature) : '—')}</div>
+      <div><b>Admission</b>${u.admission ? fmtDate(u.admission) : '—'}</div>
+      <div><b>Interventions</b>${interventions} enregistrée${interventions > 1 ? 's' : ''}</div>
+    </div>
+    ${u.pp.attentes ? `<p style="margin:0 0 10px;font-size:13.5px"><b>Attentes :</b> ${eh(u.pp.attentes)}</p>` : ''}
+    <div class="objectifs">${objs || '<span class="muet">Aucun objectif saisi.</span>'}</div>
+    ${dernieresNotes ? '<div style="margin-top:10px">' + dernieresNotes + '</div>' : ''}
+    <div class="detail-actions">
+      <button class="btn plein petit" onclick="event.stopPropagation();ouvrirUsager(${u.id})">✏️ Ouvrir la fiche complète</button>
+      <button class="btn secondaire petit" onclick="event.stopPropagation();genererEcritPour(${u.id},'Bilan intermédiaire')">📝 Générer un bilan</button>
+      <button class="btn secondaire petit" onclick="event.stopPropagation();allerJournalUsager(${u.id})">📓 Journal de ${eh(u.prenom)}</button>
+    </div></td>`;
+  return tr;
+}
+function allerJournalUsager(id) {
+  allerPage('journal');
+  document.getElementById('jf-usager').value = String(id);
+  afficherJournal();
 }
 
-function majStats() {
-  const us = donnees.usagers;
-  document.getElementById('st-total').textContent = us.length;
-  document.getElementById('st-bientot').textContent = us.filter(u => etatEcheance(u.finNotification) === 'bientot').length;
-  document.getElementById('st-echues').textContent = us.filter(u => etatEcheance(u.finNotification) === 'echue').length;
-  document.getElementById('st-obs').textContent = us.filter(u => /observation/i.test(u.note || '')).length;
-  document.querySelectorAll('.stat').forEach(s =>
-    s.classList.toggle('actif', s.dataset.filtre === filtreStat));
+/* ---------------- Échéancier ---------------- */
+function basculerVueEch() {
+  vueCalendrier = !vueCalendrier;
+  document.getElementById('btn-vue-cal').textContent = vueCalendrier ? '📋 Vue liste' : '🗓 Vue calendrier';
+  afficherEcheancier();
+}
+function afficherEcheancier() {
+  document.getElementById('ech-liste').style.display = vueCalendrier ? 'none' : '';
+  document.getElementById('ech-calendrier').style.display = vueCalendrier ? '' : 'none';
+  const filtre = document.getElementById('filtre-ech').value;
+  let items = toutesEcheances().filter(e =>
+    correspond(e.titre + ' ' + e.usager + ' ' + e.responsable) && (filtre === 'tout' || !e.fait));
+  if (vueCalendrier) { afficherCalendrier(items); return; }
+  // liste groupée par mois, retards en tête
+  const zone = document.getElementById('ech-liste');
+  if (!items.length) { zone.innerHTML = '<div class="carte"><div class="vide">Aucune échéance.</div></div>'; return; }
+  const groupes = new Map();
+  for (const e of items) {
+    const cle2 = e.date < AUJ() ? '⚠ En retard'
+      : e.date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    if (!groupes.has(cle2)) groupes.set(cle2, []);
+    groupes.get(cle2).push(e);
+  }
+  zone.innerHTML = [...groupes.entries()].map(([mois, evts]) => `
+    <div class="carte"><h2>${mois.charAt(0).toUpperCase() + mois.slice(1)}</h2>
+    ${evts.map(e => `
+      <div class="tache ${e.fait ? 'faite' : e.date < AUJ() ? 'retard' : ''}">
+        <input type="checkbox" ${e.fait ? 'checked' : ''} onchange="basculerEcheance('${e.cle}')">
+        <span class="date-t">${fmtDate(e.date)}</span>
+        <span style="flex:1">${eh(e.titre)}${e.usager ? ' — <b>' + eh(e.usager) + '</b>' : ''}</span>
+        <span class="muet" style="font-size:12px">${eh(e.responsable)}</span>
+        ${e.manuelle ? `<button class="btn secondaire petit" onclick="ouvrirEcheance(${e.id})">✏️</button>` : ''}
+      </div>`).join('')}
+    </div>`).join('');
+}
+function afficherCalendrier(items) {
+  const base = moisCourant || new Date(AUJ().getFullYear(), AUJ().getMonth(), 1);
+  moisCourant = base;
+  document.getElementById('cal-mois').textContent =
+    base.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+  const grille = document.getElementById('cal-grille');
+  const noms = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+  let html = noms.map(n => `<div class="jour-nom">${n}</div>`).join('');
+  const premier = new Date(base);
+  const decalage = (premier.getDay() + 6) % 7;
+  premier.setDate(1 - decalage);
+  const parJour = {};
+  for (const e of items) (parJour[iso(e.date)] = parJour[iso(e.date)] || []).push(e);
+  for (let i = 0; i < 42; i++) {
+    const d = new Date(premier); d.setDate(premier.getDate() + i);
+    const dedans = d.getMonth() === base.getMonth();
+    const evts = (parJour[iso(d)] || []).map(e =>
+      `<div class="evt ${e.fait ? 'fait' : e.date < AUJ() ? 'retard' : ''}" title="${eh(e.titre + (e.usager ? ' — ' + e.usager : ''))}">${eh((e.usager ? e.usager.split(' ')[0] + ' · ' : '') + e.titre)}</div>`).join('');
+    html += `<div class="jour ${dedans ? '' : 'hors'} ${iso(d) === iso(AUJ()) ? 'auj' : ''}"><span class="num">${d.getDate()}</span>${evts}</div>`;
+  }
+  grille.innerHTML = html;
+}
+function bougerMois(n) {
+  moisCourant = new Date(moisCourant.getFullYear(), moisCourant.getMonth() + n, 1);
+  afficherEcheancier();
 }
 
-function majReferents() {
-  const sel = document.getElementById('filtre-referent');
-  const datalist = document.getElementById('liste-referents');
-  const valeur = sel.value;
-  const refs = [...new Set(donnees.usagers.map(u => u.referent).filter(Boolean))].sort();
-  sel.innerHTML = '<option value="">Tous les référents</option>' +
-    refs.map(r => `<option${r === valeur ? ' selected' : ''}>${eh(r)}</option>`).join('');
-  datalist.innerHTML = refs.map(r => `<option value="${eh(r)}">`).join('');
+/* ---------------- Journal ---------------- */
+function afficherJournal() {
+  const fu = document.getElementById('jf-usager').value;
+  const fp = document.getElementById('jf-pro').value;
+  const fj = document.getElementById('jf-periode').value;
+  const seuil = fj ? new Date(Date.now() - fj * 86400 * 1000) : null;
+  const liste = donnees.journal
+    .filter(j => (!fu || String(j.usagerId) === fu) && (!fp || j.professionnel === fp)
+      && (!seuil || lireDate(j.date) >= seuil)
+      && correspond(nomComplet(parId(j.usagerId)) + ' ' + j.professionnel + ' ' + j.type + ' ' + j.note))
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  const totalMin = liste.reduce((t, j) => t + (+j.duree || 0), 0);
+  document.getElementById('j-totaux').textContent =
+    `${liste.length} intervention${liste.length > 1 ? 's' : ''} · ${Math.floor(totalMin / 60)} h ${String(totalMin % 60).padStart(2, '0')}`;
+  document.getElementById('corps-journal').innerHTML = liste.map(j => `
+    <tr><td class="nombre">${fmtDate(j.date)}</td><td class="nom">${eh(nomComplet(parId(j.usagerId)))}</td>
+    <td>${eh(j.professionnel)}</td><td>${eh(j.type)}</td>
+    <td class="nombre">${j.duree ? j.duree + ' min' : ''}</td>
+    <td style="white-space:pre-wrap;max-width:340px">${eh(j.note)}</td>
+    <td><button class="suppr" title="Supprimer" onclick="supprimerIntervention(${j.id})">🗑</button></td></tr>`).join('')
+    || '<tr><td colspan="7" class="vide">Aucune intervention sur la période.</td></tr>';
+  if (!document.getElementById('j-date').value) document.getElementById('j-date').value = iso(AUJ());
+}
+function ajouterIntervention() {
+  const usagerId = +document.getElementById('j-usager').value;
+  if (!usagerId) { toast('Choisissez un usager'); return; }
+  muter(() => donnees.journal.push({
+    id: prochainId(donnees.journal), date: document.getElementById('j-date').value || iso(AUJ()),
+    usagerId, professionnel: document.getElementById('j-pro').value.trim(),
+    type: document.getElementById('j-type').value, duree: +document.getElementById('j-duree').value || 0,
+    note: document.getElementById('j-note').value.trim() }));
+  document.getElementById('j-note').value = '';
+  toast('Intervention enregistrée');
+}
+function supprimerIntervention(id) {
+  muter(() => donnees.journal = donnees.journal.filter(j => j.id !== id));
 }
 
-function majFleches() {
-  document.querySelectorAll('thead th[data-tri]').forEach(th => {
-    th.querySelector('.fleche').textContent =
-      th.dataset.tri === tri.colonne ? (tri.sens === 1 ? '▲' : '▼') : '';
+/* ---------------- Liste d'attente ---------------- */
+function afficherAttente() {
+  const liste = donnees.attente
+    .filter(c => correspond(c.nom + ' ' + c.prenom + ' ' + c.note + ' ' + c.decision))
+    .sort((a, b) => (a.recu || '').localeCompare(b.recu || ''));
+  document.getElementById('corps-attente').innerHTML = liste.map(c => `
+    <tr class="ligne" onclick="ouvrirCandidature(${c.id})">
+      <td class="nom">${eh(c.nom)}</td><td>${eh(c.prenom)}</td>
+      <td class="nombre">${c.recu ? fmtDate(c.recu) : ''}</td>
+      <td>${badgeNotif(c.notifFin)}</td>
+      <td>${c.priorite === 'Haute' ? '<span class="badge orange">Haute</span>' : eh(c.priorite)}</td>
+      <td>${c.decision === 'Favorable' ? '<span class="badge vert">Favorable</span>'
+          : c.decision === 'Défavorable' ? '<span class="badge gris">Défavorable</span>'
+          : '<span class="badge bleu">En attente</span>'}</td>
+      <td style="max-width:300px;white-space:pre-wrap">${eh(c.note)}</td>
+      <td><button class="btn plein petit" onclick="event.stopPropagation();admettre(${c.id})">✔ Admettre</button></td>
+    </tr>`).join('') || '<tr><td colspan="8" class="vide">Aucune candidature en attente.</td></tr>';
+}
+function admettre(id) {
+  const c = donnees.attente.find(x => x.id === id);
+  if (!confirm(`Admettre ${c.nom} ${c.prenom} dans la file active (période d'observation) ?`)) return;
+  muter(() => {
+    const u = usagerVide();
+    u.id = prochainId(donnees.usagers);
+    u.nom = c.nom; u.prenom = c.prenom; u.naissance = c.naissance;
+    u.statut = 'observation'; u.admission = iso(AUJ());
+    u.note = 'Période d\'observation en cours';
+    u.mdph.notifFin = c.notifFin || '';
+    if (c.note) u.notes.push({ date: iso(AUJ()), texte: 'Candidature : ' + c.note });
+    donnees.usagers.push(u);
+    donnees.attente = donnees.attente.filter(x => x.id !== id);
+  });
+  toast(c.nom + ' admis(e) — pensez à compléter sa fiche');
+  allerPage('usagers');
+}
+
+/* ---------------- Écrits ---------------- */
+function afficherEcrits() {
+  const fs = document.getElementById('ef-statut').value;
+  const liste = donnees.ecrits
+    .filter(w => (!fs || w.statut === fs) && correspond(nomComplet(parId(w.usagerId)) + ' ' + w.type + ' ' + w.note))
+    .sort((a, b) => (a.echeance || '9999').localeCompare(b.echeance || '9999'));
+  const badgeW = s => s === 'Validé' ? 'vert' : s === 'Transmis' ? 'bleu' : s === 'En cours' ? 'orange' : 'gris';
+  document.getElementById('corps-ecrits').innerHTML = liste.map(w => `
+    <tr><td class="nom">${eh(nomComplet(parId(w.usagerId)))}</td><td>${eh(w.type)}</td>
+    <td>${w.echeance ? badgeNotif(w.echeance) : '<span class="muet">—</span>'}</td>
+    <td><span class="badge ${badgeW(w.statut)}">${eh(w.statut)}</span></td>
+    <td style="max-width:260px;white-space:pre-wrap">${eh(w.note)}</td>
+    <td style="white-space:nowrap">
+      <button class="btn secondaire petit" onclick="genererEcrit(${w.id})">📄 Générer la trame</button>
+      <button class="btn secondaire petit" onclick="ouvrirEcrit(${w.id})">✏️</button>
+    </td></tr>`).join('') || '<tr><td colspan="6" class="vide">Aucun écrit suivi.</td></tr>';
+}
+
+/* ---------------- Statistiques ---------------- */
+function tableauStat(titre, lignes, idCSV) {
+  const max = Math.max(1, ...lignes.map(l => l[1]));
+  return `<div class="carte"><h2>${titre}
+    <button class="btn secondaire petit" onclick="exporterStatCSV('${idCSV}')">CSV</button></h2>
+    ${lignes.map(([lib, n]) => `<div class="barre-ligne"><span>${eh(lib)}</span>
+      <span class="rail"><span class="rempli" style="width:${n / max * 100}%"></span></span>
+      <span class="val">${n}</span></div>`).join('') || '<span class="muet">Aucune donnée.</span>'}
+  </div>`;
+}
+let statsCourantes = {};
+function calculerStats() {
+  const actifs = fileActive();
+  const tranches = [['18-25', 18, 25], ['26-35', 26, 35], ['36-45', 36, 45], ['46-55', 46, 55], ['56 et +', 56, 200]];
+  const ages = tranches.map(([lib, a, b]) =>
+    [lib, actifs.filter(u => { const g = calculerAge(u.naissance); return g !== null && g >= a && g <= b; }).length]);
+  const parDef = {};
+  for (const u of actifs) parDef[u.mdph.deficience || '(non renseignée)'] = (parDef[u.mdph.deficience || '(non renseignée)'] || 0) + 1;
+  const parRef = {};
+  for (const u of actifs) parRef[u.equipe.referent || '(sans référent)'] = (parRef[u.equipe.referent || '(sans référent)'] || 0) + 1;
+  const annee = AUJ().getFullYear();
+  const mouvements = [];
+  for (let a = annee - 4; a <= annee; a++) {
+    mouvements.push(['Entrées ' + a, donnees.usagers.filter(u => lireDate(u.admission)?.getFullYear() === a).length]);
+    mouvements.push(['Sorties ' + a, donnees.usagers.filter(u => lireDate(u.sortie)?.getFullYear() === a).length]);
+  }
+  const motifs = {};
+  for (const u of donnees.usagers) if (u.statut === 'sorti' && u.motifSortie) motifs[u.motifSortie] = (motifs[u.motifSortie] || 0) + 1;
+  // durée moyenne d'accompagnement (mois)
+  const durees = donnees.usagers
+    .map(u => { const d = lireDate(u.admission); if (!d) return null;
+      const f = lireDate(u.sortie) || AUJ(); return (f - d) / (30.44 * 86400 * 1000); })
+    .filter(x => x !== null && x >= 0);
+  const dureeMoy = durees.length ? Math.round(durees.reduce((a, b) => a + b, 0) / durees.length) : 0;
+  statsCourantes = {
+    ages, deficiences: Object.entries(parDef).sort((a, b) => b[1] - a[1]),
+    referents: Object.entries(parRef).sort((a, b) => b[1] - a[1]),
+    mouvements, motifs: Object.entries(motifs).sort((a, b) => b[1] - a[1]),
+  };
+  return { dureeMoy, actifs };
+}
+function afficherStats() {
+  const { dureeMoy, actifs } = calculerStats();
+  const capacite = donnees.parametres.capacite || 1;
+  document.getElementById('stats-zone').innerHTML = `
+    <div>
+      <div class="carte"><h2>Vue d'ensemble</h2>
+        <div class="fiche-resume">
+          <div><b>File active</b>${actifs.length} personnes</div>
+          <div><b>Taux d'occupation</b>${Math.round(actifs.length / capacite * 100)} % (${capacite} places)</div>
+          <div><b>Durée moyenne d'accompagnement</b>${dureeMoy} mois</div>
+          <div><b>Sorties enregistrées</b>${donnees.usagers.filter(u => u.statut === 'sorti').length}</div>
+        </div></div>
+      ${tableauStat('Répartition par âge (file active)', statsCourantes.ages, 'ages')}
+      ${tableauStat('Répartition par déficience', statsCourantes.deficiences, 'deficiences')}
+    </div>
+    <div>
+      ${tableauStat('Usagers par référent', statsCourantes.referents, 'referents')}
+      ${tableauStat('Entrées / sorties (5 ans)', statsCourantes.mouvements, 'mouvements')}
+      ${tableauStat('Motifs de sortie', statsCourantes.motifs, 'motifs')}
+    </div>`;
+}
+</script>
+<script>
+'use strict';
+/* =====================================================================
+   ACTIONS — éditeurs, écrits, import/export, verrou, démarrage
+   ===================================================================== */
+let brouillon = null;   // copie de travail de l'usager en édition
+let idEcheance = null, idCandidature = null, idEcrit = null;
+
+/* ---------- Lignes dynamiques des sous-listes ---------- */
+function champ(cls, valeur, placeholder) {
+  return `<label class="champ">${placeholder}<input class="${cls}" value="${eh(valeur || '')}"></label>`;
+}
+function modeleEntourage(e) {
+  e = e || {};
+  return `<div class="ligne-sous">${champ('en-nom', e.nom, 'Nom')}${champ('en-lien', e.lien, 'Lien (mère, sœur…)')}${champ('en-tel', e.telephone, 'Téléphone')}<button class="suppr" onclick="this.parentElement.remove()">🗑</button></div>`;
+}
+function modeleIntervenant(i) {
+  i = i || {};
+  return `<div class="ligne-sous"><label class="champ">Domaine<select class="in-domaine">${DOMAINES.map(d => `<option${d === i.domaine ? ' selected' : ''}>${d}</option>`).join('')}</select></label>${champ('in-nom', i.nom, 'Professionnel')}<span></span><button class="suppr" onclick="this.parentElement.remove()">🗑</button></div>`;
+}
+function modelePartenaire(p) {
+  p = p || {};
+  return `<div class="ligne-sous">${champ('pa-nom', p.nom, 'Nom / structure')}${champ('pa-role', p.role, 'Rôle (médecin traitant…)')}${champ('pa-contact', p.contact, 'Contact')}<button class="suppr" onclick="this.parentElement.remove()">🗑</button></div>`;
+}
+function modeleObjectif(o) {
+  o = o || { domaine: 'Educatif', statut: 'En cours' };
+  return `<div class="ligne-sous obj">
+    <label class="champ">Domaine<select class="ob-domaine">${DOMAINES.map(d => `<option${d === o.domaine ? ' selected' : ''}>${d}</option>`).join('')}</select></label>
+    <label class="champ">Objectif<textarea class="ob-texte" rows="2">${eh(o.texte || '')}</textarea></label>
+    <label class="champ">Moyens / actions<textarea class="ob-moyens" rows="2">${eh(o.moyens || '')}</textarea></label>
+    <label class="champ">Avancement<select class="ob-statut">${STATUTS_OBJ.map(s => `<option${s === o.statut ? ' selected' : ''}>${s}</option>`).join('')}${STATUTS_OBJ.includes(o.statut) ? '' : `<option selected>${eh(o.statut)}</option>`}</select></label>
+    <label class="champ">Responsable<input class="ob-resp" list="liste-pros" value="${eh(o.responsable || '')}"></label>
+    <button class="suppr" onclick="this.parentElement.remove()">🗑</button></div>`;
+}
+function ajouterLigne(zone, html) {
+  document.getElementById(zone).insertAdjacentHTML('beforeend', html);
+}
+
+/* ---------- Fiche usager ---------- */
+const CHAMPS_U = ['nom', 'prenom', 'naissance', 'sexe', 'adresse', 'telephone', 'email',
+  'statut', 'admission', 'sortie', 'motifSortie', 'note'];
+function ouvrirUsager(id) {
+  const u = id === null ? usagerVide() : parId(id);
+  brouillon = JSON.parse(JSON.stringify(u));
+  brouillon.id = id === null ? 0 : id;
+  document.getElementById('mu-titre').textContent = id === null ? 'Nouvel usager' : nomComplet(u);
+  for (const c of CHAMPS_U) document.getElementById('u-' + c).value = u[c] || '';
+  document.getElementById('u-mdphNumero').value = u.mdph.numero;
+  document.getElementById('u-notifDebut').value = u.mdph.notifDebut;
+  document.getElementById('u-notifFin').value = u.mdph.notifFin;
+  document.getElementById('u-deficience').value = u.mdph.deficience;
+  document.getElementById('u-renouvDepose').checked = !!u.mdph.renouvDepose;
+  document.getElementById('u-dateDepot').value = u.mdph.dateDepot || '';
+  document.getElementById('u-protType').value = u.protection.type || 'Aucune';
+  document.getElementById('u-protMandataire').value = u.protection.mandataire;
+  document.getElementById('u-protContact').value = u.protection.contact;
+  document.getElementById('u-referent').value = u.equipe.referent;
+  document.getElementById('u-ppSignature').value = u.pp.signature;
+  document.getElementById('u-prochainEcrit').value = u.pp.prochainEcrit;
+  document.getElementById('u-attentes').value = u.pp.attentes;
+  document.getElementById('u-entourage').innerHTML = u.entourage.map(modeleEntourage).join('');
+  document.getElementById('u-intervenants').innerHTML = u.equipe.intervenants.map(modeleIntervenant).join('');
+  document.getElementById('u-partenaires').innerHTML = u.partenaires.map(modelePartenaire).join('');
+  document.getElementById('u-objectifs').innerHTML = u.pp.objectifs.map(modeleObjectif).join('');
+  document.getElementById('u-supprimer').style.display = id === null ? 'none' : '';
+  afficherNotesBrouillon();
+  afficherHistoriquePP();
+  document.getElementById('modal-usager').showModal();
+}
+function afficherNotesBrouillon() {
+  document.getElementById('u-notes').innerHTML = brouillon.notes.map((n, i) => `
+    <div class="note-item"><span class="qd">${fmtDate(n.date)}</span><p>${eh(n.texte)}</p>
+    <button class="suppr" style="height:26px;width:26px;font-size:12px" onclick="brouillon.notes.splice(${i},1);afficherNotesBrouillon()">🗑</button></div>`).join('');
+}
+function ajouterNoteUsager() {
+  const champNote = document.getElementById('u-nouvelle-note');
+  if (!champNote.value.trim()) return;
+  brouillon.notes.unshift({ date: iso(new Date()), texte: champNote.value.trim() });
+  champNote.value = '';
+  afficherNotesBrouillon();
+}
+function afficherHistoriquePP() {
+  const n = brouillon.pp.historique.length;
+  document.getElementById('u-nb-archives').textContent = n ? n + ' version(s) archivée(s)' : '';
+  document.getElementById('u-historique-pp').innerHTML = brouillon.pp.historique.map((h, i) => `
+    <details style="margin-top:8px;font-size:13px"><summary style="cursor:pointer">PP archivé le ${fmtDate(h.archiveLe)} (signé ${eh(h.signature ? fmtDate(h.signature) : '—')})</summary>
+    ${(h.objectifs || []).map(o => `<div style="padding:4px 0 4px 14px">• <b>${eh(o.domaine)}</b> — ${eh(o.texte)} <span class="muet">(${eh(o.statut)})</span></div>`).join('') || '<span class="muet">aucun objectif</span>'}
+    </details>`).join('');
+}
+function lireObjectifsDOM() {
+  return [...document.querySelectorAll('#u-objectifs .ligne-sous')].map(l => ({
+    domaine: l.querySelector('.ob-domaine').value,
+    texte: l.querySelector('.ob-texte').value.trim(),
+    moyens: l.querySelector('.ob-moyens').value.trim(),
+    statut: l.querySelector('.ob-statut').value,
+    echeance: '', responsable: l.querySelector('.ob-resp').value.trim(),
+  })).filter(o => o.texte);
+}
+function renouvelerPP() {
+  if (!confirm('Archiver la version actuelle du projet personnalisé ?\nLes objectifs resteront modifiables pour la nouvelle version.')) return;
+  brouillon.pp.historique.unshift({
+    archiveLe: iso(new Date()),
+    signature: document.getElementById('u-ppSignature').value.trim(),
+    attentes: document.getElementById('u-attentes').value.trim(),
+    objectifs: lireObjectifsDOM(),
+  });
+  document.getElementById('u-ppSignature').value = '';
+  afficherHistoriquePP();
+  toast('Version archivée — saisissez la nouvelle date de signature');
+}
+function enregistrerUsager() {
+  const val = id => document.getElementById(id).value.trim();
+  if (!val('u-nom') && !val('u-prenom')) { toast('Saisissez au moins un nom'); return; }
+  muter(() => {
+    const u = brouillon;
+    for (const c of CHAMPS_U) u[c] = val('u-' + c);
+    u.mdph = { numero: val('u-mdphNumero'), notifDebut: val('u-notifDebut'), notifFin: val('u-notifFin'),
+      deficience: val('u-deficience'), renouvDepose: document.getElementById('u-renouvDepose').checked,
+      dateDepot: val('u-dateDepot') };
+    u.protection = { type: val('u-protType'), mandataire: val('u-protMandataire'), contact: val('u-protContact') };
+    u.entourage = [...document.querySelectorAll('#u-entourage .ligne-sous')].map(l => ({
+      nom: l.querySelector('.en-nom').value.trim(), lien: l.querySelector('.en-lien').value.trim(),
+      telephone: l.querySelector('.en-tel').value.trim() })).filter(x => x.nom);
+    u.equipe.referent = val('u-referent');
+    u.equipe.intervenants = [...document.querySelectorAll('#u-intervenants .ligne-sous')].map(l => ({
+      domaine: l.querySelector('.in-domaine').value, nom: l.querySelector('.in-nom').value.trim() })).filter(x => x.nom);
+    u.partenaires = [...document.querySelectorAll('#u-partenaires .ligne-sous')].map(l => ({
+      nom: l.querySelector('.pa-nom').value.trim(), role: l.querySelector('.pa-role').value.trim(),
+      contact: l.querySelector('.pa-contact').value.trim() })).filter(x => x.nom);
+    u.pp.signature = val('u-ppSignature');
+    u.pp.prochainEcrit = val('u-prochainEcrit');
+    u.pp.attentes = val('u-attentes');
+    u.pp.objectifs = lireObjectifsDOM();
+    if (u.id === 0) { u.id = prochainId(donnees.usagers); donnees.usagers.push(u); idOuvert = u.id; }
+    else donnees.usagers[donnees.usagers.findIndex(x => x.id === u.id)] = u;
+  });
+  fermer('modal-usager');
+  toast('Fiche enregistrée');
+}
+function supprimerUsager() {
+  if (!confirm(`Supprimer définitivement la fiche de ${nomComplet(brouillon)} ?\n(Ses interventions au journal seront aussi supprimées.)`)) return;
+  muter(() => {
+    donnees.usagers = donnees.usagers.filter(x => x.id !== brouillon.id);
+    donnees.journal = donnees.journal.filter(j => j.usagerId !== brouillon.id);
+    donnees.ecrits = donnees.ecrits.filter(w => w.usagerId !== brouillon.id);
+  });
+  fermer('modal-usager');
+}
+
+/* ---------- Échéance manuelle ---------- */
+function ouvrirEcheance(id) {
+  idEcheance = id ?? null;
+  const m = id ? donnees.echeancesManuelles.find(x => x.id === id) : {};
+  document.getElementById('e-titre').value = m.titre || '';
+  document.getElementById('e-date').value = m.date || iso(AUJ());
+  document.getElementById('e-responsable').value = m.responsable || '';
+  document.getElementById('e-usager').value = m.usagerId || '';
+  document.getElementById('e-supprimer').style.display = id ? '' : 'none';
+  document.getElementById('modal-echeance').showModal();
+}
+function enregistrerEcheance() {
+  const titre = document.getElementById('e-titre').value.trim();
+  if (!titre) { toast('Saisissez un intitulé'); return; }
+  muter(() => {
+    const m = idEcheance ? donnees.echeancesManuelles.find(x => x.id === idEcheance)
+      : { id: prochainId(donnees.echeancesManuelles), fait: false };
+    m.titre = titre;
+    m.date = document.getElementById('e-date').value;
+    m.responsable = document.getElementById('e-responsable').value.trim();
+    m.usagerId = +document.getElementById('e-usager').value || null;
+    if (!idEcheance) donnees.echeancesManuelles.push(m);
+  });
+  fermer('modal-echeance');
+}
+function supprimerEcheance() {
+  muter(() => donnees.echeancesManuelles = donnees.echeancesManuelles.filter(x => x.id !== idEcheance));
+  fermer('modal-echeance');
+}
+
+/* ---------- Candidature ---------- */
+function ouvrirCandidature(id) {
+  idCandidature = id ?? null;
+  const c = id ? donnees.attente.find(x => x.id === id) : {};
+  for (const [ch, def] of [['nom', ''], ['prenom', ''], ['naissance', ''], ['recu', iso(AUJ())],
+    ['notifFin', ''], ['priorite', 'Normale'], ['decision', 'En attente'], ['note', '']])
+    document.getElementById('a-' + ch).value = c[ch] ?? def;
+  document.getElementById('a-supprimer').style.display = id ? '' : 'none';
+  document.getElementById('modal-attente').showModal();
+}
+function enregistrerCandidature() {
+  const val = id => document.getElementById('a-' + id).value.trim();
+  if (!val('nom')) { toast('Saisissez un nom'); return; }
+  muter(() => {
+    const c = idCandidature ? donnees.attente.find(x => x.id === idCandidature)
+      : { id: prochainId(donnees.attente) };
+    for (const ch of ['nom', 'prenom', 'naissance', 'recu', 'notifFin', 'priorite', 'decision', 'note'])
+      c[ch] = val(ch);
+    if (!idCandidature) donnees.attente.push(c);
+  });
+  fermer('modal-attente');
+}
+function supprimerCandidature() {
+  muter(() => donnees.attente = donnees.attente.filter(x => x.id !== idCandidature));
+  fermer('modal-attente');
+}
+
+/* ---------- Écrits ---------- */
+function ouvrirEcrit(id) {
+  idEcrit = id ?? null;
+  const w = id ? donnees.ecrits.find(x => x.id === id) : {};
+  majListesDeroulantes();
+  document.getElementById('w-usager').value = w.usagerId || donnees.usagers[0]?.id || '';
+  document.getElementById('w-type').value = w.type || 'Bilan intermédiaire';
+  document.getElementById('w-echeance').value = w.echeance || '';
+  document.getElementById('w-statut').value = w.statut || 'Demandé';
+  document.getElementById('w-note').value = w.note || '';
+  document.getElementById('w-supprimer').style.display = id ? '' : 'none';
+  document.getElementById('modal-ecrit').showModal();
+}
+function enregistrerEcrit() {
+  muter(() => {
+    const w = idEcrit ? donnees.ecrits.find(x => x.id === idEcrit) : { id: prochainId(donnees.ecrits) };
+    w.usagerId = +document.getElementById('w-usager').value;
+    w.type = document.getElementById('w-type').value;
+    w.echeance = document.getElementById('w-echeance').value;
+    w.statut = document.getElementById('w-statut').value;
+    w.note = document.getElementById('w-note').value.trim();
+    if (!idEcrit) donnees.ecrits.push(w);
+  });
+  fermer('modal-ecrit');
+}
+function supprimerEcrit() {
+  muter(() => donnees.ecrits = donnees.ecrits.filter(x => x.id !== idEcrit));
+  fermer('modal-ecrit');
+}
+function genererEcrit(id) {
+  const w = donnees.ecrits.find(x => x.id === id);
+  genererEcritPour(w.usagerId, w.type);
+}
+function genererEcritPour(usagerId, type) {
+  const u = parId(usagerId);
+  if (!u) return;
+  const objParDomaine = DOMAINES.map(d => [d, u.pp.objectifs.filter(o => o.domaine === d)]).filter(([, l]) => l.length);
+  const gabarit = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>${eh(type)} — ${eh(nomComplet(u))}</title>
+<style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;margin:2.5cm;color:#000}
+h1{font-size:16pt;text-align:center}h2{font-size:13pt;border-bottom:1px solid #888;padding-bottom:2px;margin-top:22px}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #999;padding:6px 8px;font-size:11pt;text-align:left;vertical-align:top}
+.zone{border:1px dashed #aaa;min-height:70px;padding:8px;margin:6px 0;color:#666}p.meta{text-align:center;color:#444}</style></head><body>
+<h1>${eh(donnees.titre || 'SAMSAH')}<br>${eh(type)}</h1>
+<p class="meta">Document généré le ${new Date().toLocaleDateString('fr-FR')} — à compléter puis à valider en équipe</p>
+<h2>1. Identité</h2>
+<table>
+<tr><th>Nom — Prénom</th><td>${eh(nomComplet(u))}</td><th>Naissance</th><td>${eh(u.naissance ? fmtDate(u.naissance) : '')}</td></tr>
+<tr><th>Adresse</th><td colspan="3">${eh(u.adresse)}</td></tr>
+<tr><th>N° MDPH</th><td>${eh(u.mdph.numero)}</td><th>Notification</th><td>${eh(u.mdph.notifDebut ? fmtDate(u.mdph.notifDebut) : '')} → ${eh(u.mdph.notifFin ? fmtDate(u.mdph.notifFin) : '')}</td></tr>
+<tr><th>Protection</th><td>${eh(u.protection.type)}${u.protection.mandataire ? ' — ' + eh(u.protection.mandataire) : ''}</td>
+<th>Référent</th><td>${eh(u.equipe.referent)}</td></tr>
+<tr><th>Admission</th><td>${u.admission ? fmtDate(u.admission) : ''}</td><th>PP signé le</th><td>${eh(u.pp.signature ? fmtDate(u.pp.signature) : '')}</td></tr>
+</table>
+<h2>2. Attentes exprimées par la personne</h2>
+<p>${eh(u.pp.attentes) || '<span class="zone">À compléter</span>'}</p>
+<h2>3. Objectifs du projet personnalisé et état d'avancement</h2>
+${objParDomaineHTML(objParDomaine)}
+<h2>4. Analyse de l'équipe</h2><div class="zone">À compléter (évolutions observées, freins, leviers…)</div>
+<h2>5. Perspectives et préconisations</h2><div class="zone">À compléter</div>
+<h2>Signatures</h2>
+<table><tr><th style="width:33%">La personne accompagnée</th><th style="width:33%">Le référent</th><th>La direction</th></tr>
+<tr><td style="height:70px"></td><td></td><td></td></tr></table>
+</body></html>`;
+  const nomFichier = `${type.replace(/\s+/g, '_')}_${u.nom}_${iso(new Date())}.doc`;
+  telecharger(nomFichier, '﻿' + gabarit, 'application/msword');
+  toast('Trame Word générée : ' + nomFichier);
+}
+function objParDomaineHTML(groupes) {
+  if (!groupes.length) return '<div class="zone">Aucun objectif saisi dans l\'application</div>';
+  return `<table><tr><th style="width:18%">Domaine</th><th>Objectif</th><th style="width:22%">Moyens</th><th style="width:16%">Avancement</th></tr>
+    ${groupes.map(([d, objs]) => objs.map(o =>
+      `<tr><td><b>${eh(d)}</b></td><td>${eh(o.texte).replace(/\n/g, '<br>')}</td><td>${eh(o.moyens).replace(/\n/g, '<br>')}</td><td>${eh(o.statut)}</td></tr>`).join('')).join('')}
+  </table>`;
+}
+
+/* ---------- Paramètres ---------- */
+function ouvrirParametres() {
+  document.getElementById('p-titre').value = donnees.titre || '';
+  document.getElementById('p-capacite').value = donnees.parametres.capacite;
+  document.getElementById('p-obs').value = donnees.parametres.dureeObservationMois;
+  document.getElementById('modal-parametres').showModal();
+}
+function enregistrerParametres() {
+  muter(() => {
+    donnees.titre = document.getElementById('p-titre').value.trim();
+    donnees.parametres.capacite = +document.getElementById('p-capacite').value || 30;
+    donnees.parametres.dureeObservationMois = +document.getElementById('p-obs').value || 3;
+  });
+  fermer('modal-parametres');
+}
+
+/* ---------- Code d'accès ---------- */
+function ouvrirCode() {
+  document.getElementById('l-code-actuel').style.display = codeActuel ? '' : 'none';
+  for (const id of ['c-actuel', 'c-nouveau', 'c-confirme']) document.getElementById(id).value = '';
+  document.getElementById('c-erreur').textContent = '';
+  document.getElementById('modal-code').showModal();
+}
+async function appliquerCode() {
+  const err = document.getElementById('c-erreur');
+  if (codeActuel && document.getElementById('c-actuel').value !== codeActuel) {
+    err.textContent = 'Code actuel incorrect.'; return;
+  }
+  const nouveau = document.getElementById('c-nouveau').value;
+  if (nouveau !== document.getElementById('c-confirme').value) {
+    err.textContent = 'Les deux saisies du nouveau code diffèrent.'; return;
+  }
+  if (nouveau && nouveau.length < 4) { err.textContent = 'Au moins 4 caractères.'; return; }
+  codeActuel = nouveau || null;
+  await bdEcrire('etat', await fabriquerPayload());
+  fermer('modal-code');
+  toast(codeActuel ? 'Chiffrement activé 🔐' : 'Code retiré — données non chiffrées');
+  planifierPersistance();
+}
+function deverrouiller() {
+  const code = document.getElementById('verrou-code').value;
+  bdLire('etat').then(p => dechiffrerTexte(p, code)).then(txt => {
+    codeActuel = code;
+    donnees = migrer(JSON.parse(txt));
+    document.getElementById('verrou').classList.remove('actif');
+    demarrer();
+  }).catch(() => {
+    document.getElementById('verrou-erreur').textContent = 'Code incorrect.';
+    document.getElementById('verrou-code').value = '';
   });
 }
 
-/* ============================================================
-   Édition
-   ============================================================ */
-function ouvrirEdition(id) {
-  idEdition = id;
-  const u = id === null
-    ? { nom: '', prenom: '', naissance: '', referent: '', signaturePP: '',
-        finNotification: '', prochainEcrit: '', note: '', objectifs: [] }
-    : donnees.usagers.find(x => x.id === id);
-  document.getElementById('modal-titre').textContent =
-    id === null ? 'Nouvel usager' : `${u.nom} ${u.prenom}`;
-  for (const champ of ['nom','prenom','naissance','referent','signaturePP','finNotification','prochainEcrit','note'])
-    document.getElementById('f-' + champ).value = u[champ] || '';
-  document.getElementById('btn-supprimer').style.display = id === null ? 'none' : '';
-  const zone = document.getElementById('liste-obj-edit');
-  zone.innerHTML = '';
-  for (const o of (u.objectifs || [])) ajouterObjectifEdit(o);
-  document.getElementById('modal').showModal();
+/* ---------- Copies de secours ---------- */
+async function ouvrirSauvegardes() {
+  const liste = (await bdLire('sauvegardes')) || [];
+  document.getElementById('liste-sauvegardes').innerHTML = liste.length ? liste.slice().reverse().map((s, i) => `
+    <div class="tache"><span style="flex:1">${new Date(s.quand).toLocaleString('fr-FR')}
+      ${s.payload.chiffre ? ' 🔐' : ''}</span>
+      <button class="btn secondaire petit" onclick="restaurerSauvegarde(${liste.length - 1 - i})">Restaurer</button></div>`).join('')
+    : '<div class="vide">Aucune copie pour le moment.</div>';
+  document.getElementById('modal-sauvegardes').showModal();
+}
+async function restaurerSauvegarde(index) {
+  const liste = (await bdLire('sauvegardes')) || [];
+  const s = liste[index];
+  if (!s || !confirm('Remplacer les données actuelles par la copie du ' + new Date(s.quand).toLocaleString('fr-FR') + ' ?')) return;
+  try {
+    let texte;
+    if (s.payload.chiffre) {
+      const code = codeActuel || prompt('Code d\'accès de cette copie :');
+      texte = await dechiffrerTexte(s.payload, code);
+    } else texte = JSON.stringify(s.payload.donnees);
+    pileAnnulation.push(JSON.stringify(donnees));
+    donnees = migrer(JSON.parse(texte));
+    planifierPersistance(); rafraichir();
+    fermer('modal-sauvegardes');
+    toast('Copie restaurée');
+  } catch (e) { alert('Impossible de déchiffrer cette copie (mauvais code ?).'); }
 }
 
-function ajouterObjectifEdit(o) {
-  o = o || { domaine: 'Educatif', texte: '', statut: 'En cours' };
-  const div = document.createElement('div');
-  div.className = 'obj-edit';
-  div.innerHTML = `
-    <label class="champ">Domaine
-      <select class="oe-domaine">${DOMAINES.map(d =>
-        `<option${d === o.domaine ? ' selected' : ''}>${d}</option>`).join('')}</select>
-    </label>
-    <label class="champ">Objectif
-      <textarea class="oe-texte">${eh(o.texte)}</textarea>
-    </label>
-    <label class="champ">Avancement
-      <select class="oe-statut">${STATUTS.map(s =>
-        `<option${s === o.statut ? ' selected' : ''}>${s}</option>`).join('')}
-        ${STATUTS.includes(o.statut) ? '' : `<option selected>${eh(o.statut)}</option>`}</select>
-    </label>
-    <button class="suppr-obj" title="Supprimer cet objectif" onclick="this.parentElement.remove()">🗑</button>`;
-  document.getElementById('liste-obj-edit').appendChild(div);
-}
-
-function enregistrerUsager() {
-  const lire = id => document.getElementById('f-' + id).value.trim();
-  if (!lire('nom') && !lire('prenom')) { alert('Veuillez saisir au moins un nom.'); return; }
-  const objectifs = [...document.querySelectorAll('#liste-obj-edit .obj-edit')]
-    .map(d => ({
-      domaine: d.querySelector('.oe-domaine').value,
-      texte: d.querySelector('.oe-texte').value.trim(),
-      statut: d.querySelector('.oe-statut').value,
-    }))
-    .filter(o => o.texte);
-  const champs = {
-    nom: lire('nom'), prenom: lire('prenom'), naissance: lire('naissance'),
-    referent: lire('referent'), signaturePP: lire('signaturePP'),
-    finNotification: lire('finNotification'), prochainEcrit: lire('prochainEcrit'),
-    note: lire('note'), objectifs,
-  };
-  if (idEdition === null) {
-    const id = Math.max(0, ...donnees.usagers.map(u => u.id)) + 1;
-    donnees.usagers.push({ id, ...champs });
-    idOuvert = id;
-  } else {
-    Object.assign(donnees.usagers.find(u => u.id === idEdition), champs);
-  }
-  document.getElementById('modal').close();
-  sauvegarder(); majReferents(); afficher();
-}
-
-function supprimerUsager() {
-  const u = donnees.usagers.find(x => x.id === idEdition);
-  if (!confirm(`Supprimer définitivement la fiche de ${u.nom} ${u.prenom} ?`)) return;
-  donnees.usagers = donnees.usagers.filter(x => x.id !== idEdition);
-  document.getElementById('modal').close();
-  sauvegarder(); majReferents(); afficher();
-}
-
-/* ============================================================
-   Import / export
-   ============================================================ */
+/* ---------- Import / export ---------- */
 function telecharger(nom, contenu, type) {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([contenu], { type }));
-  a.download = nom;
-  a.click();
+  // en ouverture file://, un accent dans le nom fait perdre le nom du téléchargement
+  a.download = nom.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w.-]+/g, '_');
+  document.body.appendChild(a); // nécessaire pour conserver le nom en ouverture file://
+  a.click(); a.remove();
   URL.revokeObjectURL(a.href);
 }
-function horodatage() {
-  return new Date().toISOString().slice(0, 10);
-}
-function exporterJSON() {
-  telecharger(`coordination-samsah-${horodatage()}.json`,
-    JSON.stringify(donnees, null, 1), 'application/json');
+async function exporterJSON() {
+  const contenu = JSON.stringify(donnees, null, 1);
+  const nom = `coordination-samsah-${iso(new Date())}.json`;
+  if (codeActuel) toast('Attention : l\'export JSON n\'est pas chiffré');
+  try {
+    const h = await showSaveFilePicker({ suggestedName: nom,
+      types: [{ description: 'Données JSON', accept: { 'application/json': ['.json'] } }] });
+    const f = await h.createWritable(); await f.write(contenu); await f.close();
+    toast('Données exportées');
+  } catch (e) {
+    if (e.name === 'AbortError') return;
+    telecharger(nom, contenu, 'application/json');
+  }
 }
 function importerJSON(input) {
   const fichier = input.files[0];
@@ -599,58 +1948,115 @@ function importerJSON(input) {
     let d;
     try { d = JSON.parse(txt); } catch (e) { alert('Fichier illisible : ce n\'est pas un JSON valide.'); return; }
     if (!Array.isArray(d.usagers)) { alert('Ce fichier ne contient pas de liste « usagers ».'); return; }
-    if (!confirm(`Remplacer les ${donnees.usagers.length} usagers actuels par les ${d.usagers.length} du fichier ?`)) return;
-    donnees = d;
-    sauvegarder(); majReferents(); afficher();
+    if (!confirm(`Remplacer les données actuelles (${donnees.usagers.length} usagers) par celles du fichier (${d.usagers.length} usagers) ?`)) return;
+    muter(() => { donnees = migrer(d); });
+    toast('Données importées');
   });
   input.value = '';
 }
-function exporterCSV() {
-  const sep = ';'; // Excel FR attend le point-virgule
-  const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
-  const lignes = [['Nom','Prénom','Date de naissance','Âge','Référent','Signature PP',
-                   'Fin notification','Prochain écrit','Situation','Domaine','Objectif','Avancement']
-                  .map(q).join(sep)];
-  for (const u of donnees.usagers) {
-    const age = calculerAge(u.naissance);
-    const base = [u.nom, u.prenom, u.naissance, age !== null ? age + ' ans' : '',
-                  u.referent, u.signaturePP, u.finNotification, u.prochainEcrit, u.note];
-    if (!u.objectifs?.length) {
-      lignes.push([...base, '', '', ''].map(q).join(sep));
-    } else {
-      u.objectifs.forEach((o, i) => {
-        lignes.push([...(i === 0 ? base : base.map(() => '')),
-                     o.domaine, o.texte, o.statut].map(q).join(sep));
-      });
+const csvQ = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+function csv(lignes) { return '﻿' + lignes.map(l => l.map(csvQ).join(';')).join('\r\n'); }
+function exporterCSVvue() {
+  let lignes, nom;
+  if (pageActive === 'journal') {
+    nom = 'journal';
+    lignes = [['Date', 'Usager', 'Professionnel', 'Type', 'Durée (min)', 'Note'],
+      ...donnees.journal.map(j => [fmtDate(j.date), nomComplet(parId(j.usagerId)), j.professionnel, j.type, j.duree, j.note])];
+  } else if (pageActive === 'echeancier') {
+    nom = 'echeancier';
+    lignes = [['Date', 'Échéance', 'Usager', 'Responsable', 'Fait'],
+      ...toutesEcheances().map(e => [fmtDate(e.date), e.titre, e.usager, e.responsable, e.fait ? 'oui' : 'non'])];
+  } else if (pageActive === 'attente') {
+    nom = 'liste-attente';
+    lignes = [['Nom', 'Prénom', 'Naissance', 'Reçu le', 'Fin notification', 'Priorité', 'Décision', 'Note'],
+      ...donnees.attente.map(c => [c.nom, c.prenom, c.naissance, fmtDate(c.recu), c.notifFin, c.priorite, c.decision, c.note])];
+  } else if (pageActive === 'ecrits') {
+    nom = 'ecrits';
+    lignes = [['Usager', 'Type', 'Échéance', 'Statut', 'Note'],
+      ...donnees.ecrits.map(w => [nomComplet(parId(w.usagerId)), w.type, fmtDate(w.echeance), w.statut, w.note])];
+  } else {
+    nom = 'usagers';
+    lignes = [['Nom', 'Prénom', 'Naissance', 'Âge', 'Statut', 'Référent', 'N° MDPH', 'Notif début', 'Notif fin',
+      'Renouv. déposé', 'Déficience', 'Protection', 'Admission', 'Signature PP', 'Situation', 'Domaine', 'Objectif', 'Moyens', 'Avancement', 'Responsable']];
+    for (const u of donnees.usagers) {
+      const age = calculerAge(u.naissance);
+      const base = [u.nom, u.prenom, u.naissance, age !== null ? age : '', LIBELLE_STATUT[u.statut] || u.statut,
+        u.equipe.referent, u.mdph.numero, u.mdph.notifDebut, u.mdph.notifFin, u.mdph.renouvDepose ? 'oui' : '',
+        u.mdph.deficience, u.protection.type, u.admission ? fmtDate(u.admission) : '', u.pp.signature, u.note];
+      if (!u.pp.objectifs.length) lignes.push([...base, '', '', '', '', '']);
+      else u.pp.objectifs.forEach((o, i) =>
+        lignes.push([...(i === 0 ? base : base.map(() => '')), o.domaine, o.texte, o.moyens, o.statut, o.responsable]));
     }
   }
-  telecharger(`coordination-samsah-${horodatage()}.csv`,
-    '﻿' + lignes.join('\r\n'), 'text/csv;charset=utf-8');
+  telecharger(`${nom}-${iso(new Date())}.csv`, csv(lignes), 'text/csv;charset=utf-8');
+}
+function exporterStatCSV(id) {
+  calculerStats();
+  const titres = { ages: 'Tranche d\'âge', deficiences: 'Déficience', referents: 'Référent',
+    mouvements: 'Période', motifs: 'Motif de sortie' };
+  telecharger(`stat-${id}-${iso(new Date())}.csv`,
+    csv([[titres[id], 'Nombre'], ...statsCourantes[id]]), 'text/csv;charset=utf-8');
 }
 
-/* ============================================================
-   Écouteurs
-   ============================================================ */
-document.getElementById('recherche').addEventListener('input', afficher);
-document.getElementById('filtre-referent').addEventListener('change', afficher);
-document.querySelectorAll('thead th[data-tri]').forEach(th =>
+/* ---------- Événements ---------- */
+document.getElementById('onglets').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (b) allerPage(b.dataset.page);
+});
+document.getElementById('recherche').addEventListener('input', () => rafraichir());
+for (const id of ['filtre-referent', 'filtre-statut']) document.getElementById(id).addEventListener('change', afficherUsagers);
+document.getElementById('filtre-ech').addEventListener('change', afficherEcheancier);
+for (const id of ['jf-usager', 'jf-pro', 'jf-periode']) document.getElementById(id).addEventListener('change', afficherJournal);
+document.getElementById('ef-statut').addEventListener('change', afficherEcrits);
+document.querySelectorAll('#page-usagers thead th[data-tri]').forEach(th =>
   th.addEventListener('click', () => {
-    if (tri.colonne === th.dataset.tri) tri.sens *= -1;
-    else { tri.colonne = th.dataset.tri; tri.sens = 1; }
-    afficher();
+    if (triU.colonne === th.dataset.tri) triU.sens *= -1;
+    else { triU.colonne = th.dataset.tri; triU.sens = 1; }
+    afficherUsagers();
   }));
-document.querySelectorAll('.stat').forEach(s =>
-  s.addEventListener('click', () => {
-    filtreStat = (filtreStat === s.dataset.filtre) ? 'tous' : s.dataset.filtre;
-    afficher();
-  }));
+document.querySelectorAll('[data-fu]').forEach(s =>
+  s.addEventListener('click', () => { filtreU = filtreU === s.dataset.fu ? 'tous' : s.dataset.fu; afficherUsagers(); }));
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z'
+      && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
+    e.preventDefault(); annuler();
+  }
+});
+document.addEventListener('click', e => {
+  const menu = document.getElementById('menu-donnees');
+  if (menu.open && !menu.contains(e.target)) menu.open = false;
+});
+document.getElementById('menu-donnees').addEventListener('click', e => {
+  if (e.target.closest('.panneau button')) document.getElementById('menu-donnees').open = false;
+});
+document.getElementById('verrou-code').addEventListener('keydown', e => {
+  if (e.key === 'Enter') deverrouiller();
+});
 
-if (donnees.titre) {
-  document.querySelector('#titre-app small').textContent = donnees.titre;
+/* ---------- Démarrage ---------- */
+function demarrer() {
+  rafraichir();
+  copieDeSecours();
 }
-sauvegarder();
-majReferents();
-afficher();
+(async () => {
+  const p = await bdLire('etat');
+  if (!p) {
+    // reprise automatique des données de la V1 si présentes sur ce poste
+    let v1 = null;
+    try { v1 = JSON.parse(localStorage.getItem('samsah-coordination-v1')); } catch (e) {}
+    donnees = migrer(v1 && Array.isArray(v1.usagers) && v1.usagers.length
+      ? v1 : JSON.parse(document.getElementById('seed').textContent));
+    planifierPersistance();
+    demarrer();
+    if (v1 && v1.usagers?.length) toast('Données de la version 1 récupérées automatiquement');
+  } else if (!p.chiffre) {
+    donnees = migrer(p.donnees);
+    demarrer();
+  } else {
+    document.getElementById('verrou').classList.add('actif');
+    document.getElementById('verrou-code').focus();
+  }
+})();
 </script>
 </body>
 </html>

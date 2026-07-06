@@ -118,9 +118,9 @@ locale plus fluide, plus fiable et pensée pour le métier.
 | Étape | Contenu | Statut |
 |---|---|---|
 | V1 | Tableau des usagers, objectifs par domaine, alertes de notification, import ODS, export JSON/CSV | ✅ livrée |
-| V2 | Dossier usager complet, PP enrichi avec historique, échéancier automatique, sauvegarde fichier + code d'accès | à faire |
-| V3 | Tableau de bord « À faire », journal d'accompagnement, liste d'attente | à faire |
-| V4 | Trames d'écrits Word/PDF, calendrier, statistiques et rapport d'activité | à faire |
+| V2 | Dossier usager complet, PP enrichi avec historique, échéancier automatique, sauvegarde fichier + code d'accès | ✅ livrée |
+| V3 | Tableau de bord « À faire », journal d'accompagnement, liste d'attente | ✅ livrée |
+| V4 | Trames d'écrits Word/PDF, calendrier, statistiques et rapport d'activité | ✅ livrée |
 
 Technique : fichier HTML autonome (IndexedDB + accès fichier), sans
 dépendance réseau ; empaquetage Tauri en `.exe` possible en fin de parcours.
