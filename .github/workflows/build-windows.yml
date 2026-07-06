@@ -1,0 +1,36 @@
+name: Compiler l'application Windows (Coordination)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/local-windows-app-excel-wdt64c]
+    paths:
+      - "Coordination-SAMSAH.html"
+      - "electron/**"
+      - ".github/workflows/build-windows.yml"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: electron
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Compiler le .exe portable
+        run: npm run build:win-portable
+
+      - name: Publier le .exe compilé
+        uses: actions/upload-artifact@v4
+        with:
+          name: Coordination-portable-windows
+          path: electron/dist/Coordination-portable.exe
+          if-no-files-found: error

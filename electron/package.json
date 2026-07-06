@@ -1,0 +1,40 @@
+{
+  "name": "coordination-samsah",
+  "productName": "Coordination",
+  "version": "1.0.0",
+  "description": "Coordination SAMSAH — application locale de coordination (usagers, projets personnalisés, échéancier, journal, liste d'attente, écrits, statistiques)",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "preparer": "node preparer.js",
+    "start": "npm run preparer && electron .",
+    "build:win-portable": "npm run preparer && electron-builder --win portable",
+    "build:win-installateur": "npm run preparer && electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "fr.samsah.coordination",
+    "productName": "Coordination",
+    "asar": true,
+    "files": ["main.js", "app/**/*"],
+    "directories": { "buildResources": "build", "output": "dist" },
+    "win": {
+      "icon": "build/icone.ico",
+      "target": [
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "nsis", "arch": ["x64"] }
+      ]
+    },
+    "portable": { "artifactName": "Coordination-portable.exe" },
+    "nsis": {
+      "artifactName": "Coordination-installateur.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

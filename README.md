@@ -9,6 +9,10 @@ tableur Excel/LibreOffice.
 seul fichier, `Coordination-SAMSAH.html` — à copier n'importe où (Bureau,
 clé USB, lecteur réseau) et à ouvrir d'un double-clic.
 
+Une version **application Windows portable** (`Coordination.exe`, sa propre
+fenêtre et icône, sans navigateur visible) est aussi disponible — voir
+[`electron/README.md`](electron/README.md).
+
 > ⚠️ Le fichier du dépôt contient uniquement des données d'exemple fictives.
 > Les données réelles ne sont jamais publiées sur GitHub.
 
