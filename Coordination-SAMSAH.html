@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coordination SAMSAH — Tableau global des projets</title>
+<style>
+  :root {
+    --bleu: #1a5fb4; --bleu-clair: #e8f0fb; --entete: #1a5fb4;
+    --fond: #f4f6f9; --fond-2: #fafbfd; --carte: #ffffff;
+    --texte: #1f2937; --texte-2: #6b7280;
+    --bord: #e2e6ec; --gris-fond: #eef0f3;
+    --rouge: #c0392b; --rouge-fond: #fdecea;
+    --orange: #b45309; --orange-fond: #fef3e2;
+    --vert: #1e7e4d; --vert-fond: #e7f5ee;
+    --ombre: 0 1px 3px rgba(15, 30, 60, .08), 0 4px 14px rgba(15, 30, 60, .06);
+    --dom-edu: #1a5fb4; --dom-soc: #1e7e4d; --dom-soin: #c0392b; --dom-psy: #7d3c98; --dom-psm: #b45309; --dom-ergo: #0e7c7b; --bleu-clair-hover: #d5e4f7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bleu: #6ea3e8; --bleu-clair: #1d2c44; --entete: #16406f;
+      --fond: #12161d; --fond-2: #161c25; --carte: #1a212b;
+      --texte: #e5e9f0; --texte-2: #94a0b3;
+      --bord: #2a3341; --gris-fond: #262e3a;
+      --rouge: #e5786a; --rouge-fond: #3a201c;
+      --orange: #e0a04a; --orange-fond: #382c15;
+      --vert: #5fbd8a; --vert-fond: #17301f;
+      --ombre: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
+    --dom-edu: #7dabe8; --dom-soc: #66c295; --dom-soin: #e5786a; --dom-psy: #b98ccc; --dom-psm: #e0a04a; --dom-ergo: #58b8b7; --bleu-clair-hover: #24365a;
+    }
+  }
+  :root[data-theme="light"] {
+    --bleu: #1a5fb4; --bleu-clair: #e8f0fb; --entete: #1a5fb4;
+    --fond: #f4f6f9; --fond-2: #fafbfd; --carte: #ffffff;
+    --texte: #1f2937; --texte-2: #6b7280;
+    --bord: #e2e6ec; --gris-fond: #eef0f3;
+    --rouge: #c0392b; --rouge-fond: #fdecea;
+    --orange: #b45309; --orange-fond: #fef3e2;
+    --vert: #1e7e4d; --vert-fond: #e7f5ee;
+    --ombre: 0 1px 3px rgba(15, 30, 60, .08), 0 4px 14px rgba(15, 30, 60, .06);
+    --dom-edu: #1a5fb4; --dom-soc: #1e7e4d; --dom-soin: #c0392b; --dom-psy: #7d3c98; --dom-psm: #b45309; --dom-ergo: #0e7c7b; --bleu-clair-hover: #d5e4f7;
+  }
+  :root[data-theme="dark"] {
+    --bleu: #6ea3e8; --bleu-clair: #1d2c44; --entete: #16406f;
+    --fond: #12161d; --fond-2: #161c25; --carte: #1a212b;
+    --texte: #e5e9f0; --texte-2: #94a0b3;
+    --bord: #2a3341; --gris-fond: #262e3a;
+    --rouge: #e5786a; --rouge-fond: #3a201c;
+    --orange: #e0a04a; --orange-fond: #382c15;
+    --vert: #5fbd8a; --vert-fond: #17301f;
+    --ombre: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
+    --dom-edu: #7dabe8; --dom-soc: #66c295; --dom-soin: #e5786a; --dom-psy: #b98ccc; --dom-psm: #e0a04a; --dom-ergo: #58b8b7; --bleu-clair-hover: #24365a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: var(--fond); color: var(--texte);
+    font-size: 15px; line-height: 1.45;
+  }
+
+  /* ---------- Barre du haut ---------- */
+  header {
+    background: var(--entete); color: #fff;
+    padding: 14px 22px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 20;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  header h1 { font-size: 17px; margin: 0; font-weight: 600; flex: 1; min-width: 260px; }
+  header h1 small { display: block; font-weight: 400; font-size: 12.5px; opacity: .85; }
+  .btn {
+    border: none; border-radius: 8px; padding: 8px 14px;
+    font-size: 13.5px; font-weight: 600; cursor: pointer;
+    background: rgba(255,255,255,.16); color: #fff;
+    transition: background .15s;
+  }
+  .btn:hover { background: rgba(255,255,255,.28); }
+  .btn.primaire { background: #fff; color: #1a5fb4; }
+  .btn.primaire:hover { background: #eaf1fb; }
+  .btn.danger { background: var(--rouge); color: #fff; }
+  .btn.danger:hover { background: #a93226; }
+  .btn.secondaire { background: var(--bleu-clair); color: var(--bleu); }
+  .btn.secondaire:hover { background: var(--bleu-clair-hover); }
+
+  /* ---------- Statistiques + filtres ---------- */
+  .bandeau {
+    max-width: 1250px; margin: 18px auto 0; padding: 0 22px;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  }
+  .stat {
+    background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
+    padding: 8px 14px; font-size: 13.5px; cursor: pointer;
+    box-shadow: var(--ombre); user-select: none;
+  }
+  .stat b { font-size: 17px; margin-right: 5px; }
+  .stat.actif { outline: 2px solid var(--bleu); }
+  .stat.orange b { color: var(--orange); }
+  .stat.rouge b { color: var(--rouge); }
+  .stat.vert b { color: var(--vert); }
+  .bandeau input[type=search], .bandeau select {
+    padding: 9px 12px; border: 1px solid var(--bord); border-radius: 10px;
+    font-size: 14px; background: var(--carte); box-shadow: var(--ombre);
+  }
+  .bandeau input[type=search] { flex: 1; min-width: 220px; }
+  .bandeau input[type=search]:focus, .bandeau select:focus {
+    outline: 2px solid var(--bleu); border-color: transparent;
+  }
+
+  /* ---------- Tableau ---------- */
+  main { max-width: 1250px; margin: 14px auto 60px; padding: 0 22px; }
+  .table-wrap {
+    background: var(--carte); border-radius: 12px; overflow: auto;
+    box-shadow: var(--ombre); border: 1px solid var(--bord);
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 900px; }
+  thead th {
+    text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .4px;
+    color: var(--texte-2); padding: 11px 12px; border-bottom: 2px solid var(--bord);
+    cursor: pointer; white-space: nowrap; user-select: none;
+    position: sticky; top: 0; background: var(--carte); z-index: 5;
+  }
+  thead th:hover { color: var(--bleu); }
+  thead th .fleche { font-size: 10px; margin-left: 3px; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--bord); vertical-align: top; }
+  tbody tr.ligne { cursor: pointer; transition: background .1s; }
+  tbody tr.ligne:hover { background: var(--bleu-clair); }
+  tbody tr.ligne.ouverte { background: var(--bleu-clair); }
+  .nom { font-weight: 600; white-space: nowrap; }
+  .muet { color: var(--texte-2); }
+  .badge {
+    display: inline-block; border-radius: 20px; padding: 2px 10px;
+    font-size: 12px; font-weight: 600; white-space: nowrap;
+  }
+  .badge.rouge { background: var(--rouge-fond); color: var(--rouge); }
+  .badge.orange { background: var(--orange-fond); color: var(--orange); }
+  .badge.vert { background: var(--vert-fond); color: var(--vert); }
+  .badge.gris { background: var(--gris-fond); color: var(--texte-2); }
+  .badge.bleu { background: var(--bleu-clair); color: var(--bleu); }
+
+  /* ---------- Détail (ligne dépliée) ---------- */
+  tr.detail td { background: var(--fond-2); padding: 16px 22px; }
+  .objectifs { display: grid; gap: 10px; }
+  .objectif {
+    display: grid; grid-template-columns: 150px 1fr 190px; gap: 12px;
+    background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
+    padding: 10px 14px; align-items: start;
+  }
+  .dom {
+    font-weight: 700; font-size: 13px; border-left: 4px solid var(--texte-2);
+    padding-left: 8px; white-space: nowrap;
+  }
+  .dom.Educatif       { border-color: var(--dom-edu); color: var(--dom-edu); }
+  .dom.Social         { border-color: var(--dom-soc); color: var(--dom-soc); }
+  .dom.Soin           { border-color: var(--dom-soin); color: var(--dom-soin); }
+  .dom.Psychologie    { border-color: var(--dom-psy); color: var(--dom-psy); }
+  .dom.Psychomotricite{ border-color: var(--dom-psm); color: var(--dom-psm); }
+  .dom.Ergotherapie   { border-color: var(--dom-ergo); color: var(--dom-ergo); }
+  .dom.Autre          { border-color: #6b7280; color: #6b7280; }
+  .objectif .texte { white-space: pre-wrap; font-size: 14px; }
+  .detail-actions { margin-top: 14px; display: flex; gap: 10px; }
+  .vide { text-align: center; padding: 40px; color: var(--texte-2); }
+
+  /* ---------- Fenêtre d'édition ---------- */
+  dialog {
+    border: none; border-radius: 14px; padding: 0;
+    width: min(880px, 94vw); max-height: 92vh;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  dialog::backdrop { background: rgba(15,30,60,.45); }
+  .modal-tete {
+    background: var(--entete); color: #fff; padding: 14px 22px;
+    font-size: 16px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .modal-corps { padding: 20px 22px; overflow: auto; max-height: calc(92vh - 130px); }
+  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  label.champ { display: block; font-size: 12.5px; font-weight: 600; color: var(--texte-2); }
+  label.champ input, label.champ textarea, label.champ select {
+    display: block; width: 100%; margin-top: 4px;
+    padding: 8px 10px; border: 1px solid var(--bord); border-radius: 8px;
+    font-size: 14px; font-family: inherit; background: var(--carte); color: var(--texte);
+  }
+  label.champ input:focus, label.champ textarea:focus, label.champ select:focus {
+    outline: 2px solid var(--bleu); border-color: transparent;
+  }
+  .obj-edit {
+    border: 1px solid var(--bord); border-radius: 10px; padding: 12px;
+    margin-top: 10px; display: grid; grid-template-columns: 170px 1fr 170px 36px;
+    gap: 10px; align-items: start; background: var(--fond-2);
+  }
+  .obj-edit textarea { min-height: 64px; resize: vertical; }
+  .suppr-obj {
+    border: none; background: var(--rouge-fond); color: var(--rouge);
+    border-radius: 8px; cursor: pointer; font-size: 16px; height: 34px; margin-top: 18px;
+  }
+  .modal-pied {
+    padding: 14px 22px; border-top: 1px solid var(--bord);
+    display: flex; gap: 10px; justify-content: flex-end; background: var(--fond-2);
+  }
+  .sous-titre { font-size: 13px; font-weight: 700; color: var(--texte-2);
+    text-transform: uppercase; letter-spacing: .4px; margin: 22px 0 4px; }
+
+  .info-sauvegarde { font-size: 12px; opacity: .8; }
+
+  /* ---------- Impression ---------- */
+  @media print {
+    header .btn, .bandeau, .detail-actions, .suppr-obj { display: none !important; }
+    header { position: static; background: #fff; color: #000; box-shadow: none; }
+    body { background: #fff; }
+    .table-wrap { box-shadow: none; border: none; }
+    tr.detail { display: table-row !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="titre-app">Coordination SAMSAH
+    <small>Tableau global des projets — Toutes déficiences et TSA</small>
+  </h1>
+  <span class="info-sauvegarde" id="info-sauvegarde"></span>
+  <button class="btn primaire" onclick="ouvrirEdition(null)">➕ Nouvel usager</button>
+  <button class="btn" onclick="exporterJSON()">💾 Sauvegarder (JSON)</button>
+  <button class="btn" onclick="document.getElementById('fichier-import').click()">📂 Importer</button>
+  <button class="btn" onclick="exporterCSV()">📊 Export Excel (CSV)</button>
+  <button class="btn" onclick="window.print()">🖨️ Imprimer</button>
+  <input type="file" id="fichier-import" accept=".json" hidden onchange="importerJSON(this)">
+</header>
+
+<div class="bandeau">
+  <span class="stat" data-filtre="tous"><b id="st-total">0</b> usagers</span>
+  <span class="stat orange" data-filtre="bientot"><b id="st-bientot">0</b> échéances &lt; 6 mois</span>
+  <span class="stat rouge" data-filtre="echues"><b id="st-echues">0</b> notifications échues</span>
+  <span class="stat vert" data-filtre="observation"><b id="st-obs">0</b> en observation</span>
+  <input type="search" id="recherche" placeholder="🔍 Rechercher un nom, un objectif, un référent… (résultat instantané)">
+  <select id="filtre-referent"><option value="">Tous les référents</option></select>
+</div>
+
+<main>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-tri="nom">Nom <span class="fleche"></span></th>
+          <th data-tri="prenom">Prénom <span class="fleche"></span></th>
+          <th data-tri="age">Âge <span class="fleche"></span></th>
+          <th data-tri="referent">Référent <span class="fleche"></span></th>
+          <th data-tri="signaturePP">Signature PP <span class="fleche"></span></th>
+          <th data-tri="finNotification">Fin notification <span class="fleche"></span></th>
+          <th>Situation / objectifs</th>
+        </tr>
+      </thead>
+      <tbody id="corps-table"></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- Fenêtre d'édition -->
+<dialog id="modal">
+  <div class="modal-tete">
+    <span id="modal-titre">Usager</span>
+    <button class="btn" onclick="document.getElementById('modal').close()">✕ Fermer</button>
+  </div>
+  <div class="modal-corps">
+    <div class="grille">
+      <label class="champ">Nom <input id="f-nom"></label>
+      <label class="champ">Prénom <input id="f-prenom"></label>
+      <label class="champ">Date de naissance (JJ/MM/AAAA) <input id="f-naissance" placeholder="ex : 28/07/2000"></label>
+      <label class="champ">Référent <input id="f-referent" list="liste-referents"><datalist id="liste-referents"></datalist></label>
+      <label class="champ">Signature du PP <input id="f-signaturePP" placeholder="JJ/MM/AA ou « En cours »"></label>
+      <label class="champ">Fin de notification SAMSAH <input id="f-finNotification" placeholder="JJ/MM/AA"></label>
+      <label class="champ">Prochain écrit <input id="f-prochainEcrit"></label>
+    </div>
+    <label class="champ" style="margin-top:12px">Situation / note générale
+      <textarea id="f-note" rows="2" placeholder="ex : Période d'observation en cours"></textarea>
+    </label>
+    <div class="sous-titre">Objectifs du projet personnalisé</div>
+    <div id="liste-obj-edit"></div>
+    <button class="btn secondaire" style="margin-top:10px" onclick="ajouterObjectifEdit()">➕ Ajouter un objectif</button>
+  </div>
+  <div class="modal-pied">
+    <button class="btn danger" id="btn-supprimer" onclick="supprimerUsager()">🗑 Supprimer l'usager</button>
+    <span style="flex:1"></span>
+    <button class="btn secondaire" onclick="document.getElementById('modal').close()">Annuler</button>
+    <button class="btn primaire" style="background:var(--entete);color:#fff" onclick="enregistrerUsager()">✔ Enregistrer</button>
+  </div>
+</dialog>
+
+<!-- Données initiales (chargées uniquement au premier lancement) -->
+<script id="seed" type="application/json">
+{
+ "titre": "Tableau global des projets — SAMSAH",
+ "usagers": [
+  {"id": 1, "nom": "EXEMPLE", "prenom": "Jean", "naissance": "15/03/1985", "referent": "Référent A",
+   "signaturePP": "10/01/25", "finNotification": "31/12/27", "prochainEcrit": "",
+   "note": "",
+   "objectifs": [
+     {"domaine": "Educatif", "texte": "1. Expérimenter des sorties en autonomie", "statut": "En cours"},
+     {"domaine": "Soin", "texte": "1. Accompagner monsieur dans son suivi médical", "statut": "En cours"}
+   ]},
+  {"id": 2, "nom": "DEMO", "prenom": "Marie", "naissance": "04/09/1982", "referent": "Référent B",
+   "signaturePP": "En cours", "finNotification": "30/09/26", "prochainEcrit": "",
+   "note": "Période d'observation en cours", "objectifs": []}
+ ]
+}
+</script>
+
+<script>
+'use strict';
+
+/* ============================================================
+   Données & persistance
+   Les données sont enregistrées automatiquement dans le
+   navigateur (localStorage). Pensez à faire régulièrement
+   « Sauvegarder (JSON) » pour garder une copie de secours.
+   ============================================================ */
+const CLE_STOCKAGE = 'samsah-coordination-v1';
+const DOMAINES = ['Educatif', 'Social', 'Soin', 'Psychologie', 'Psychomotricité', 'Ergothérapie', 'Autre'];
+const STATUTS = ['En cours', 'Atteint', 'En pause', 'Abandonné'];
+
+let donnees;
+try {
+  donnees = JSON.parse(localStorage.getItem(CLE_STOCKAGE));
+} catch (e) { donnees = null; }
+if (!donnees || !Array.isArray(donnees.usagers)) {
+  donnees = JSON.parse(document.getElementById('seed').textContent);
+}
+
+let tri = { colonne: 'nom', sens: 1 };
+let filtreStat = 'tous';
+let idOuvert = null;   // ligne dépliée
+let idEdition = null;  // usager en cours d'édition (null = nouveau)
+
+function sauvegarder() {
+  localStorage.setItem(CLE_STOCKAGE, JSON.stringify(donnees));
+  const h = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('info-sauvegarde').textContent = 'Enregistré à ' + h;
+}
+
+/* ============================================================
+   Dates : lecture tolérante de JJ/MM/AA ou JJ/MM/AAAA
+   ============================================================ */
+function lireDate(s, naissance) {
+  if (!s) return null;
+  const m = String(s).replace(/\s| /g, '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
+  if (!m) return null;
+  let [ , j, mo, a ] = m.map(Number);
+  if (a < 100) {
+    const anneeCourante = new Date().getFullYear() % 100;
+    // dates de naissance : 69 → 1969 ; échéances : toujours 20xx
+    a += (naissance && a > anneeCourante) ? 1900 : 2000;
+  }
+  const d = new Date(a, mo - 1, j);
+  return isNaN(d) ? null : d;
+}
+function calculerAge(naissance) {
+  const d = lireDate(naissance, true);
+  if (!d) return null;
+  const auj = new Date();
+  let age = auj.getFullYear() - d.getFullYear();
+  if (auj.getMonth() < d.getMonth() ||
+     (auj.getMonth() === d.getMonth() && auj.getDate() < d.getDate())) age--;
+  return age;
+}
+/* État d'échéance : 'echue' | 'bientot' (< 6 mois) | 'ok' | null */
+function etatEcheance(s) {
+  const d = lireDate(s);
+  if (!d) return null;
+  const auj = new Date();
+  if (d < auj) return 'echue';
+  const dans6mois = new Date(auj); dans6mois.setMonth(auj.getMonth() + 6);
+  return d < dans6mois ? 'bientot' : 'ok';
+}
+
+/* ============================================================
+   Affichage
+   ============================================================ */
+const eh = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function classeDomaine(d) {
+  return d.normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function usagersFiltres() {
+  const q = document.getElementById('recherche').value.trim().toLowerCase();
+  const ref = document.getElementById('filtre-referent').value;
+  let liste = donnees.usagers.filter(u => {
+    if (ref && u.referent !== ref) return false;
+    if (filtreStat === 'echues'  && etatEcheance(u.finNotification) !== 'echue') return false;
+    if (filtreStat === 'bientot' && etatEcheance(u.finNotification) !== 'bientot') return false;
+    if (filtreStat === 'observation' && !/observation/i.test(u.note || '')) return false;
+    if (!q) return true;
+    const texte = [u.nom, u.prenom, u.referent, u.note,
+      ...(u.objectifs || []).map(o => o.domaine + ' ' + o.texte + ' ' + o.statut)]
+      .join(' ').toLowerCase();
+    return q.split(/\s+/).every(mot => texte.includes(mot));
+  });
+  const c = tri.colonne;
+  liste.sort((a, b) => {
+    let va, vb;
+    if (c === 'age') { va = calculerAge(a.naissance) ?? -1; vb = calculerAge(b.naissance) ?? -1; }
+    else if (c === 'signaturePP' || c === 'finNotification') {
+      va = lireDate(a[c])?.getTime() ?? Infinity; vb = lireDate(b[c])?.getTime() ?? Infinity;
+    } else { va = (a[c] || '').toLowerCase(); vb = (b[c] || '').toLowerCase(); }
+    return (va < vb ? -1 : va > vb ? 1 : 0) * tri.sens;
+  });
+  return liste;
+}
+
+function badgeEcheance(s) {
+  if (!s) return '<span class="muet">—</span>';
+  const etat = etatEcheance(s);
+  if (etat === 'echue')   return `<span class="badge rouge">⚠ ${eh(s)}</span>`;
+  if (etat === 'bientot') return `<span class="badge orange">⏳ ${eh(s)}</span>`;
+  return eh(s);
+}
+
+function resumeObjectifs(u) {
+  const morceaux = [];
+  if (u.note) morceaux.push(`<span class="badge bleu">${eh(u.note)}</span>`);
+  if (u.objectifs?.length)
+    morceaux.push(`<span class="badge vert">${u.objectifs.length} objectif${u.objectifs.length > 1 ? 's' : ''}</span>`);
+  if (!morceaux.length) morceaux.push('<span class="badge gris">Aucun objectif saisi</span>');
+  return morceaux.join(' ');
+}
+
+function afficher() {
+  const corps = document.getElementById('corps-table');
+  const liste = usagersFiltres();
+  corps.innerHTML = '';
+  if (!liste.length) {
+    corps.innerHTML = '<tr><td colspan="7" class="vide">Aucun usager ne correspond à la recherche.</td></tr>';
+  }
+  for (const u of liste) {
+    const tr = document.createElement('tr');
+    tr.className = 'ligne' + (u.id === idOuvert ? ' ouverte' : '');
+    const age = calculerAge(u.naissance);
+    tr.innerHTML = `
+      <td class="nom">${eh(u.nom)}</td>
+      <td>${eh(u.prenom)}</td>
+      <td>${age !== null ? age + ' ans' : '<span class="muet">' + eh(u.naissance || '—') + '</span>'}</td>
+      <td>${eh(u.referent) || '<span class="muet">—</span>'}</td>
+      <td>${eh(u.signaturePP) || '<span class="muet">—</span>'}</td>
+      <td>${badgeEcheance(u.finNotification)}</td>
+      <td>${resumeObjectifs(u)}</td>`;
+    tr.onclick = () => { idOuvert = (idOuvert === u.id ? null : u.id); afficher(); };
+    corps.appendChild(tr);
+
+    if (u.id === idOuvert) {
+      const trd = document.createElement('tr');
+      trd.className = 'detail';
+      const objs = (u.objectifs || []).map(o => `
+        <div class="objectif">
+          <span class="dom ${classeDomaine(o.domaine)}">${eh(o.domaine)}</span>
+          <span class="texte">${eh(o.texte)}</span>
+          <span><span class="badge ${o.statut === 'Atteint' ? 'vert' : o.statut === 'En cours' ? 'bleu' : 'gris'}">${eh(o.statut)}</span></span>
+        </div>`).join('');
+      trd.innerHTML = `<td colspan="7">
+        ${u.naissance ? `<p class="muet" style="margin:0 0 10px">Né(e) le ${eh(u.naissance)}${u.prochainEcrit ? ' · Prochain écrit : ' + eh(u.prochainEcrit) : ''}</p>` : ''}
+        ${u.note ? `<p style="margin:0 0 12px"><span class="badge bleu">${eh(u.note)}</span></p>` : ''}
+        <div class="objectifs">${objs || '<span class="muet">Aucun objectif saisi pour le moment.</span>'}</div>
+        <div class="detail-actions">
+          <button class="btn secondaire" onclick="event.stopPropagation(); ouvrirEdition(${u.id})">✏️ Modifier la fiche</button>
+        </div>
+      </td>`;
+      corps.appendChild(trd);
+    }
+  }
+  majStats();
+  majFleches();
+}
+
+function majStats() {
+  const us = donnees.usagers;
+  document.getElementById('st-total').textContent = us.length;
+  document.getElementById('st-bientot').textContent = us.filter(u => etatEcheance(u.finNotification) === 'bientot').length;
+  document.getElementById('st-echues').textContent = us.filter(u => etatEcheance(u.finNotification) === 'echue').length;
+  document.getElementById('st-obs').textContent = us.filter(u => /observation/i.test(u.note || '')).length;
+  document.querySelectorAll('.stat').forEach(s =>
+    s.classList.toggle('actif', s.dataset.filtre === filtreStat));
+}
+
+function majReferents() {
+  const sel = document.getElementById('filtre-referent');
+  const datalist = document.getElementById('liste-referents');
+  const valeur = sel.value;
+  const refs = [...new Set(donnees.usagers.map(u => u.referent).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="">Tous les référents</option>' +
+    refs.map(r => `<option${r === valeur ? ' selected' : ''}>${eh(r)}</option>`).join('');
+  datalist.innerHTML = refs.map(r => `<option value="${eh(r)}">`).join('');
+}
+
+function majFleches() {
+  document.querySelectorAll('thead th[data-tri]').forEach(th => {
+    th.querySelector('.fleche').textContent =
+      th.dataset.tri === tri.colonne ? (tri.sens === 1 ? '▲' : '▼') : '';
+  });
+}
+
+/* ============================================================
+   Édition
+   ============================================================ */
+function ouvrirEdition(id) {
+  idEdition = id;
+  const u = id === null
+    ? { nom: '', prenom: '', naissance: '', referent: '', signaturePP: '',
+        finNotification: '', prochainEcrit: '', note: '', objectifs: [] }
+    : donnees.usagers.find(x => x.id === id);
+  document.getElementById('modal-titre').textContent =
+    id === null ? 'Nouvel usager' : `${u.nom} ${u.prenom}`;
+  for (const champ of ['nom','prenom','naissance','referent','signaturePP','finNotification','prochainEcrit','note'])
+    document.getElementById('f-' + champ).value = u[champ] || '';
+  document.getElementById('btn-supprimer').style.display = id === null ? 'none' : '';
+  const zone = document.getElementById('liste-obj-edit');
+  zone.innerHTML = '';
+  for (const o of (u.objectifs || [])) ajouterObjectifEdit(o);
+  document.getElementById('modal').showModal();
+}
+
+function ajouterObjectifEdit(o) {
+  o = o || { domaine: 'Educatif', texte: '', statut: 'En cours' };
+  const div = document.createElement('div');
+  div.className = 'obj-edit';
+  div.innerHTML = `
+    <label class="champ">Domaine
+      <select class="oe-domaine">${DOMAINES.map(d =>
+        `<option${d === o.domaine ? ' selected' : ''}>${d}</option>`).join('')}</select>
+    </label>
+    <label class="champ">Objectif
+      <textarea class="oe-texte">${eh(o.texte)}</textarea>
+    </label>
+    <label class="champ">Avancement
+      <select class="oe-statut">${STATUTS.map(s =>
+        `<option${s === o.statut ? ' selected' : ''}>${s}</option>`).join('')}
+        ${STATUTS.includes(o.statut) ? '' : `<option selected>${eh(o.statut)}</option>`}</select>
+    </label>
+    <button class="suppr-obj" title="Supprimer cet objectif" onclick="this.parentElement.remove()">🗑</button>`;
+  document.getElementById('liste-obj-edit').appendChild(div);
+}
+
+function enregistrerUsager() {
+  const lire = id => document.getElementById('f-' + id).value.trim();
+  if (!lire('nom') && !lire('prenom')) { alert('Veuillez saisir au moins un nom.'); return; }
+  const objectifs = [...document.querySelectorAll('#liste-obj-edit .obj-edit')]
+    .map(d => ({
+      domaine: d.querySelector('.oe-domaine').value,
+      texte: d.querySelector('.oe-texte').value.trim(),
+      statut: d.querySelector('.oe-statut').value,
+    }))
+    .filter(o => o.texte);
+  const champs = {
+    nom: lire('nom'), prenom: lire('prenom'), naissance: lire('naissance'),
+    referent: lire('referent'), signaturePP: lire('signaturePP'),
+    finNotification: lire('finNotification'), prochainEcrit: lire('prochainEcrit'),
+    note: lire('note'), objectifs,
+  };
+  if (idEdition === null) {
+    const id = Math.max(0, ...donnees.usagers.map(u => u.id)) + 1;
+    donnees.usagers.push({ id, ...champs });
+    idOuvert = id;
+  } else {
+    Object.assign(donnees.usagers.find(u => u.id === idEdition), champs);
+  }
+  document.getElementById('modal').close();
+  sauvegarder(); majReferents(); afficher();
+}
+
+function supprimerUsager() {
+  const u = donnees.usagers.find(x => x.id === idEdition);
+  if (!confirm(`Supprimer définitivement la fiche de ${u.nom} ${u.prenom} ?`)) return;
+  donnees.usagers = donnees.usagers.filter(x => x.id !== idEdition);
+  document.getElementById('modal').close();
+  sauvegarder(); majReferents(); afficher();
+}
+
+/* ============================================================
+   Import / export
+   ============================================================ */
+function telecharger(nom, contenu, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([contenu], { type }));
+  a.download = nom;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function horodatage() {
+  return new Date().toISOString().slice(0, 10);
+}
+function exporterJSON() {
+  telecharger(`coordination-samsah-${horodatage()}.json`,
+    JSON.stringify(donnees, null, 1), 'application/json');
+}
+function importerJSON(input) {
+  const fichier = input.files[0];
+  if (!fichier) return;
+  fichier.text().then(txt => {
+    let d;
+    try { d = JSON.parse(txt); } catch (e) { alert('Fichier illisible : ce n\'est pas un JSON valide.'); return; }
+    if (!Array.isArray(d.usagers)) { alert('Ce fichier ne contient pas de liste « usagers ».'); return; }
+    if (!confirm(`Remplacer les ${donnees.usagers.length} usagers actuels par les ${d.usagers.length} du fichier ?`)) return;
+    donnees = d;
+    sauvegarder(); majReferents(); afficher();
+  });
+  input.value = '';
+}
+function exporterCSV() {
+  const sep = ';'; // Excel FR attend le point-virgule
+  const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const lignes = [['Nom','Prénom','Date de naissance','Âge','Référent','Signature PP',
+                   'Fin notification','Prochain écrit','Situation','Domaine','Objectif','Avancement']
+                  .map(q).join(sep)];
+  for (const u of donnees.usagers) {
+    const age = calculerAge(u.naissance);
+    const base = [u.nom, u.prenom, u.naissance, age !== null ? age + ' ans' : '',
+                  u.referent, u.signaturePP, u.finNotification, u.prochainEcrit, u.note];
+    if (!u.objectifs?.length) {
+      lignes.push([...base, '', '', ''].map(q).join(sep));
+    } else {
+      u.objectifs.forEach((o, i) => {
+        lignes.push([...(i === 0 ? base : base.map(() => '')),
+                     o.domaine, o.texte, o.statut].map(q).join(sep));
+      });
+    }
+  }
+  telecharger(`coordination-samsah-${horodatage()}.csv`,
+    '﻿' + lignes.join('\r\n'), 'text/csv;charset=utf-8');
+}
+
+/* ============================================================
+   Écouteurs
+   ============================================================ */
+document.getElementById('recherche').addEventListener('input', afficher);
+document.getElementById('filtre-referent').addEventListener('change', afficher);
+document.querySelectorAll('thead th[data-tri]').forEach(th =>
+  th.addEventListener('click', () => {
+    if (tri.colonne === th.dataset.tri) tri.sens *= -1;
+    else { tri.colonne = th.dataset.tri; tri.sens = 1; }
+    afficher();
+  }));
+document.querySelectorAll('.stat').forEach(s =>
+  s.addEventListener('click', () => {
+    filtreStat = (filtreStat === s.dataset.filtre) ? 'tous' : s.dataset.filtre;
+    afficher();
+  }));
+
+if (donnees.titre) {
+  document.querySelector('#titre-app small').textContent = donnees.titre;
+}
+sauvegarder();
+majReferents();
+afficher();
+</script>
+</body>
+</html>
