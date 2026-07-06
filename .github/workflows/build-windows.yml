@@ -9,6 +9,9 @@ on:
       - "electron/**"
       - ".github/workflows/build-windows.yml"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -34,3 +37,14 @@ jobs:
           name: Coordination-portable-windows
           path: electron/dist/Coordination-portable.exe
           if-no-files-found: error
+
+      - name: Publier une release téléchargeable
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete portable-latest --yes --cleanup-tag || true
+          gh release create portable-latest dist/Coordination-portable.exe \
+            --title "Coordination — dernier .exe portable" \
+            --notes "Compilé automatiquement depuis le commit ${{ github.sha }}." \
+            --target "${{ github.sha }}"
